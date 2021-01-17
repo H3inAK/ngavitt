@@ -1,8 +1,13 @@
-## NgaVitt (covid-19 Tracker App with Awesome UI)
-<hr width='560' color="grey">
+## NgaVitt (covid-19 Tracker App with Awesome UI
 
 #### public api - https://corona.lmao.ninja/
 #### UI inspired from [The Flutter Way](https://youtu.be/axWBN1aotQk)
+
+#### Used Packages
+	provider - https://pub.dev/packages/provider
+	http - https://pub.dev/packages/http
+	fl_chart - https://pub.dev/packages/fl_chart
+	flutter_svg - https://pub.dev/packages/flutter_svg
 
 <table>
 		<tr>
