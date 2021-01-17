@@ -19,7 +19,6 @@ class CountriesProvider with ChangeNotifier {
     if (response.statusCode == 200) {
       print("fetching data ...");
       final countriesData = jsonDecode(response.body) as List<dynamic>;
-      // print(countriesData);
 
       _countries.clear();
       countriesData.forEach((countryData) {
