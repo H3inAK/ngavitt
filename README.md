@@ -56,5 +56,3 @@
 		</tr>
 </table>
 
-### Make a pull request
-### Leave a star
