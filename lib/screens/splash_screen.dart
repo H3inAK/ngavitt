@@ -36,7 +36,9 @@ class _SplashScreenState extends State<SplashScreen> {
                   content: Text("you have no internet connection"),
                   actions: [
                     FlatButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(ctx).pop();
+                      },
                       child: Text("okay"),
                     ),
                   ],
