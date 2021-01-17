@@ -1,4 +1,4 @@
-## NgaVitt (covid-19 Tracker App with Awesome UI
+## NgaVitt (Covid-19 Tracker App with Awesome UI)
 
 #### public api - https://corona.lmao.ninja/
 #### UI inspired from [The Flutter Way](https://youtu.be/axWBN1aotQk)
@@ -55,3 +55,6 @@
 			</td>
 		</tr>
 </table>
+
+### Make a pull request
+### Leave a star
