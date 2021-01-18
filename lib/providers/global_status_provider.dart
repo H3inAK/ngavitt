@@ -17,7 +17,6 @@ class GlobalStatusProvider with ChangeNotifier {
     final response = await http.get(url);
 
     if (response.statusCode == 200) {
-      print("fetched global status");
       final responseData = jsonDecode(response.body) as Map<String, dynamic>;
 
       _globalStatus = GlobalStatus.fromJson(responseData);
@@ -27,6 +26,7 @@ class GlobalStatusProvider with ChangeNotifier {
     }
   }
 
+  // may be used later
   void changeSignal() {
     notifyListeners();
   }

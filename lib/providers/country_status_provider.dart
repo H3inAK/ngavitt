@@ -18,7 +18,6 @@ class CountryStatusProvider with ChangeNotifier {
 
     if (response.statusCode == 200) {
       final responseData = jsonDecode(response.body);
-      // print(responseData);
 
       _countryStatus = CountryStatus.fromJson(responseData);
       notifyListeners();

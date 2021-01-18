@@ -17,16 +17,11 @@ class CountriesProvider with ChangeNotifier {
     final response = await http.get(url);
 
     if (response.statusCode == 200) {
-      print("fetching data ...");
       final countriesData = jsonDecode(response.body) as List<dynamic>;
 
       _countries.clear();
       countriesData.forEach((countryData) {
         _countries.add(CountryStatus.fromJson(countryData));
-      });
-      print("data length => ${countries.length}");
-      _countries.forEach((country) {
-        print(country.countryName);
       });
       notifyListeners();
     } else {
