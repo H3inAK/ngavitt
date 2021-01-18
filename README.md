@@ -4,12 +4,14 @@
 #### UI inspired from [The Flutter Way](https://youtu.be/axWBN1aotQk)
 
 #### Used Packages
-#### [provider](https://pub.dev/packages/provider)
-#### [http](https://pub.dev/packages/http)
-#### [fl_chart](https://pub.dev/packages/fl_chart)
-#### [flutter_svg](https://pub.dev/packages/flutter_svg)
+<ul>
+	<li>#### [provider](https://pub.dev/packages/provider)</li>
+<li>#### [http](https://pub.dev/packages/http)</li>
+<li>#### [fl_chart](https://pub.dev/packages/fl_chart)</li>
+<li>#### [flutter_svg](https://pub.dev/packages/flutter_svg)</li>
+</ul>
 
-Star⭐ the repo if you like this 😉.
+Star⭐ the repo if you like this 😉.<br>
 Make a pull request to contribute with me 😉.
 
 ## 📸 ScreenShots
@@ -27,35 +29,35 @@ Make a pull request to contribute with me 😉.
 		</tr>
 		<tr>
 			<td>
-				<img src="screenshots/sorting.jpg" alt="">
+				<img src="screenshots/sorting.jpg" alt="sorting countries">
 			</td>
 			<td>
-				<img src="screenshots/continents.jpg" alt="">
+				<img src="screenshots/continents.jpg" alt="continents">
 			</td>
 			<td>
-				<img src="screenshots/continets_countries.jpg" alt="">
-			</td>
-		</tr>
-		<tr>
-			<td>
-				<img src="screenshots/country.jpg" alt="">
-			</td>
-			<td>
-				<img src="screenshots/country_piechart.jpg" alt="">
-			</td>
-			<td>
-				<img src="screenshots/country2.jpg" alt="">
+				<img src="screenshots/continets_countries.jpg" alt="countries as continents">
 			</td>
 		</tr>
 		<tr>
 			<td>
-				<img src="screenshots/searching.jpg" alt="">
+				<img src="screenshots/country.jpg" alt="myanmar covid-19 status">
 			</td>
 			<td>
-				<img src="screenshots/preventationi.jpg" alt="">
+				<img src="screenshots/country_piechart.jpg" alt="as a chart">
 			</td>
 			<td>
-				<img src="screenshots/global_pie_chart_status.jpg" alt="">
+				<img src="screenshots/country2.jpg" alt="indonesia covid-19 status">
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<img src="screenshots/searching.jpg" alt="search countries by name">
+			</td>
+			<td>
+				<img src="screenshots/preventationi.jpg" alt="preventation screen">
+			</td>
+			<td>
+				<img src="screenshots/global_pie_chart_status.jpg" alt="global chart status">
 			</td>
 		</tr>
 </table>
