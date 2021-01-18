@@ -5,17 +5,17 @@
 
 #### Used Packages
 <ul>
-	<li>#### [provider](https://pub.dev/packages/provider)</li>
-<li>#### [http](https://pub.dev/packages/http)</li>
-<li>#### [fl_chart](https://pub.dev/packages/fl_chart)</li>
-<li>#### [flutter_svg](https://pub.dev/packages/flutter_svg)</li>
-</ul>
+		<li><a href="https://pub.dev/packages/provider" style="text-decoration: none; color: blue;">provider</a></li>
+		<li><a href="https://pub.dev/packages/http" style="text-decoration: none; color: blue;">http</a></li>
+		<li><a href="https://pub.dev/packages/fl_chart" style="text-decoration: none; color: blue;">fl_chart</a></li>
+		<li><a href="https://pub.dev/packages/flutter_svg" style="text-decoration: none; color: blue;">flutter_svg</a></li>
+	</ul>	
 
 Star⭐ the repo if you like this 😉.<br>
-Make a pull request to contribute with me 😉.
+Make a pull request to contribute with me 😉.<br>
 
 ## 📸 ScreenShots
-<table border="none" bgcolor="skyblue">
+<table bgcolor="grey" border="none" style="border-collapse: collapse;">
 		<tr>
 			<td>
 				<img src="screenshots/splash_screen.jpg" alt="splash screen">
