@@ -29,12 +29,12 @@ Make a pull request to contribute with me 😉.<br>
 </ul>
 
 ## 📸 ScreenShots
-<img src="screenshots/splash_screen.jpg" alt="splash screen" width="400"><img src="screenshots/global_status.jpg" alt="global status board" width="400">
-<img src="screenshots/sidebarmenu.jpg" alt="sidebar menu" width="400"><img src="screenshots/sorting.jpg" alt="sorting countries" width="400">
-<img src="screenshots/continents.jpg" alt="continents" width="400"><img src="screenshots/continets_countries.jpg" alt="countries as continents" width="400">
-<img src="screenshots/country.jpg" alt="myanmar covid-19 status" width="400"><img src="screenshots/country_piechart.jpg" alt="as a chart" width="400">
-<img src="screenshots/searching.jpg" alt="search countries by name" width="400"><img src="screenshots/country2.jpg" alt="indonesia covid-19 status" width="400">
-<img src="screenshots/preventationi.jpg" alt="preventation screen" width="400"><img src="screenshots/global_pie_chart_status.jpg" alt="global chart status" width="400">
+<img src="screenshots/splash_screen.jpg" alt="splash screen" width="400"> <img src="screenshots/global_status.jpg" alt="global status board" width="400">
+<img src="screenshots/sidebarmenu.jpg" alt="sidebar menu" width="400"> <img src="screenshots/sorting.jpg" alt="sorting countries" width="400">
+<img src="screenshots/continents.jpg" alt="continents" width="400"> <img src="screenshots/continets_countries.jpg" alt="countries as continents" width="400">
+<img src="screenshots/country.jpg" alt="myanmar covid-19 status" width="400"> <img src="screenshots/country_piechart.jpg" alt="as a chart" width="400">
+<img src="screenshots/searching.jpg" alt="search countries by name" width="400"> <img src="screenshots/country2.jpg" alt="indonesia covid-19 status" width="400">
+<img src="screenshots/preventationi.jpg" alt="preventation screen" width="400"> <img src="screenshots/global_pie_chart_status.jpg" alt="global chart status" width="400">
 
 
 ## 🤓 Author
