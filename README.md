@@ -28,8 +28,7 @@ Make a pull request to contribute with me 😉.<br>
 	<li>how to prevent screen</li>
 </ul>
 
-#### Demo Video
-<iframe src="https://youtu.be/cAxXZ1V7NiQ" height="200" width="300" title="demo video"></iframe>
+#### [Demo Video](https://youtu.be/cAxXZ1V7NiQ)
 
 ## 📸 ScreenShots
 <img src="screenshots/splash_screen.jpg" alt="splash screen" width="400"> <img src="screenshots/global_status.jpg" alt="global status board" width="400">
