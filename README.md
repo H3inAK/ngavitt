@@ -21,6 +21,7 @@ Make a pull request to contribute with me 😉.<br>
 	<li>included total 220 countries</li>
 	<li>pie chart status</li>
 	<li>see countries as by their continents</li>
+        <li>searching country by name<li>
 	<li>sorting countries by names, active and total cases</li>
 	<li>sorting by ascending or descending order</li>
 	<li>refresh indicator,refresh case butthon(better UX)</li>
