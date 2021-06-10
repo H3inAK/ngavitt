@@ -30,7 +30,6 @@ class InfoCard extends StatelessWidget {
               width: constraints.maxWidth / 2 - 10,
               // Here constraints.maxWidth provide us the available width for the widget
               decoration: BoxDecoration(
-                color: Colors.white,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: SingleChildScrollView(
@@ -97,6 +96,10 @@ class InfoCard extends StatelessWidget {
                                     style: TextStyle(
                                       fontSize: 12,
                                       height: 2,
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .subtitle1
+                                          .color,
                                     ),
                                   ),
                                 ],

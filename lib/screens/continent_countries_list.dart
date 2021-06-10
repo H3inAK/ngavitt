@@ -17,7 +17,10 @@ class ContinentCountriesList extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(continentName + " Countries"),
+        title: Text(
+          continentName + " Countries",
+          style: Theme.of(context).textTheme.headline6,
+        ),
         elevation: 0.2,
       ),
       body: Container(

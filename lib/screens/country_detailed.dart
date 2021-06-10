@@ -186,11 +186,12 @@ class _CountryDetailsScreenState extends State<CountryDetailsScreen> {
                                   vertical: 10,
                                 ),
                                 decoration: BoxDecoration(
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
                                   borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(8),
                                     topRight: Radius.circular(8),
                                   ),
-                                  color: Colors.white,
                                   boxShadow: [
                                     BoxShadow(
                                       blurRadius: 4.0,

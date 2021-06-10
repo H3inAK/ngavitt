@@ -23,7 +23,10 @@ class AllCountriesScreen extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text("All Countries"),
+          title: Text(
+            "All Countries",
+            style: Theme.of(context).textTheme.headline6,
+          ),
           actions: [
             PopupMenuButton<String>(
               icon: Icon(Icons.more_vert),

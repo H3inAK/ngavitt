@@ -26,7 +26,7 @@ class PreventationScreen extends StatelessWidget {
           },
         ),
         title: Text(
-          "PREVENTATIONS",
+          "PREVENTIONS",
           style: TextStyle(
             color: Theme.of(context).accentColor,
           ),
