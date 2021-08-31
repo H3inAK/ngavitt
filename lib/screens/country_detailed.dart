@@ -28,7 +28,12 @@ class _CountryDetailsScreenState extends State<CountryDetailsScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(countryName + "'s Covid-19 Status"),
+        title: Text(
+          countryName + "'s Covid-19 Status",
+          style: TextStyle(
+            color: Theme.of(context).accentColor,
+          ),
+        ),
         elevation: 0.2,
         centerTitle: false,
       ),
@@ -110,6 +115,7 @@ class _CountryDetailsScreenState extends State<CountryDetailsScreen> {
                             onRefresh: () =>
                                 _fetchCountryData(context, countryName),
                             child: GridView(
+                              physics: BouncingScrollPhysics(),
                               padding: EdgeInsets.symmetric(
                                 vertical: 4,
                                 horizontal: 22,
@@ -203,7 +209,7 @@ class _CountryDetailsScreenState extends State<CountryDetailsScreen> {
                                 ),
                                 child: Container(
                                   width: double.infinity,
-                                  child: RaisedButton.icon(
+                                  child: ElevatedButton.icon(
                                     onPressed: () {
                                       setState(() {});
                                     },
@@ -218,9 +224,11 @@ class _CountryDetailsScreenState extends State<CountryDetailsScreen> {
                                         fontWeight: FontWeight.bold,
                                       ),
                                     ),
-                                    color: kPrimaryColor,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(8),
+                                    style: ElevatedButton.styleFrom(
+                                      primary: Colors.purple,
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(6),
+                                      ),
                                     ),
                                   ),
                                 ),
@@ -228,31 +236,7 @@ class _CountryDetailsScreenState extends State<CountryDetailsScreen> {
                             : Container(),
                       ],
                     ),
-                    PieChartCountryPage(
-                      [
-                        ChartData(
-                          name: "Active",
-                          color: Colors.orange[400],
-                          percent: (countryData.countryStatus.active /
-                                  countryData.countryStatus.cases) *
-                              100,
-                        ),
-                        ChartData(
-                          name: "Recovered",
-                          color: Colors.green[400],
-                          percent: (countryData.countryStatus.recovered /
-                                  countryData.countryStatus.cases) *
-                              100,
-                        ),
-                        ChartData(
-                          name: "Deaths",
-                          color: Colors.redAccent[400],
-                          percent: (countryData.countryStatus.deaths /
-                                  countryData.countryStatus.cases) *
-                              100,
-                        ),
-                      ],
-                    ),
+                    buildPieChartCountryPage(countryData),
                   ],
                 );
               },
@@ -262,6 +246,35 @@ class _CountryDetailsScreenState extends State<CountryDetailsScreen> {
           }
         },
       ),
+    );
+  }
+
+  PieChartCountryPage buildPieChartCountryPage(
+      CountryStatusProvider countryData) {
+    return PieChartCountryPage(
+      [
+        ChartData(
+          name: "Active",
+          color: Colors.orange[400],
+          percent: (countryData.countryStatus.active /
+                  countryData.countryStatus.cases) *
+              100,
+        ),
+        ChartData(
+          name: "Recovered",
+          color: Colors.green[400],
+          percent: (countryData.countryStatus.recovered /
+                  countryData.countryStatus.cases) *
+              100,
+        ),
+        ChartData(
+          name: "Deaths",
+          color: Colors.redAccent[400],
+          percent: (countryData.countryStatus.deaths /
+                  countryData.countryStatus.cases) *
+              100,
+        ),
+      ],
     );
   }
 }

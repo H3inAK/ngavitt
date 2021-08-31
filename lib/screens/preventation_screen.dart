@@ -1,3 +1,4 @@
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -7,63 +8,66 @@ import '../widgets/cards/preventation_card.dart';
 class PreventationScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      drawer: AppDrawer(),
-      appBar: AppBar(
-        leading: Builder(
-          builder: (ctx) {
-            return IconButton(
-              icon: SvgPicture.asset(
-                "assets/icons/menu.svg",
-                color: Theme.of(context).accentColor,
-                width: 20,
-              ),
-              onPressed: () {
-                Scaffold.of(ctx).openDrawer();
-              },
-            );
-          },
-        ),
-        title: Text(
-          "PREVENTIONS",
-          style: TextStyle(
-            color: Theme.of(context).accentColor,
+    return ThemeSwitchingArea(
+      child: Scaffold(
+        drawer: AppDrawer(),
+        appBar: AppBar(
+          leading: Builder(
+            builder: (ctx) {
+              return IconButton(
+                icon: SvgPicture.asset(
+                  "assets/icons/menu.svg",
+                  color: Theme.of(context).accentColor,
+                  width: 20,
+                ),
+                onPressed: () {
+                  Scaffold.of(ctx).openDrawer();
+                },
+              );
+            },
           ),
-        ),
-        elevation: 0.2,
-      ),
-      body: Column(
-        children: [
-          Container(
-            height: 250,
-            child: ListView(
-              padding: EdgeInsets.symmetric(
-                vertical: 30,
-                horizontal: 16,
-              ),
-              scrollDirection: Axis.horizontal,
-              children: [
-                PreventitonCard(
-                  svgSrc: "assets/icons/hand_wash.svg",
-                  title: "Wash Hands",
-                ),
-                SizedBox(width: 20),
-                PreventitonCard(
-                  svgSrc: "assets/icons/use_mask.svg",
-                  title: "Use Masks",
-                ),
-                SizedBox(width: 20),
-                PreventitonCard(
-                  svgSrc: "assets/icons/Clean_Disinfect.svg",
-                  title: "Clean Disinfect",
-                ),
-              ],
+          title: Text(
+            "PREVENTIONS",
+            style: TextStyle(
+              color: Theme.of(context).accentColor,
             ),
           ),
-          SizedBox(height: 20),
-          buildHelpCard(context),
-        ],
+          elevation: 0.2,
+          centerTitle: true,
+        ),
+        body: Column(
+          children: [
+            Container(
+              height: 250,
+              child: ListView(
+                physics: BouncingScrollPhysics(),
+                padding: EdgeInsets.symmetric(
+                  vertical: 30,
+                  horizontal: 16,
+                ),
+                scrollDirection: Axis.horizontal,
+                children: [
+                  PreventitonCard(
+                    svgSrc: "assets/icons/hand_wash.svg",
+                    title: "Wash Hands",
+                  ),
+                  SizedBox(width: 20),
+                  PreventitonCard(
+                    svgSrc: "assets/icons/use_mask.svg",
+                    title: "Use Masks",
+                  ),
+                  SizedBox(width: 20),
+                  PreventitonCard(
+                    svgSrc: "assets/icons/Clean_Disinfect.svg",
+                    title: "Clean Disinfect",
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 20),
+            buildHelpCard(context),
+          ],
+        ),
       ),
     );
   }

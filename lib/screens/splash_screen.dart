@@ -1,8 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
-import '../constants/constants.dart';
 import '../helpers/custom_routes.dart';
 import '../providers/counrties_provider.dart';
 import '../screens/home_screen.dart';
@@ -13,6 +14,8 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  var _onWillPop = false;
+
   @override
   void initState() {
     Future.delayed(Duration.zero).then(
@@ -21,8 +24,8 @@ class _SplashScreenState extends State<SplashScreen> {
             .fetchAndSetCountriesData()
             .then(
               (_) => Navigator.of(context).pushReplacement(
-                CustomRoute(
-                  builder: (ctx) => HomeScreen(),
+                FadedPageRoute(
+                  child: HomeScreen(),
                 ),
               ),
             )
@@ -32,12 +35,22 @@ class _SplashScreenState extends State<SplashScreen> {
               context: context,
               builder: (ctx) {
                 return AlertDialog(
-                  title: Text("Connection Error"),
-                  content: Text("you have no internet connection"),
+                  title: Row(
+                    children: [
+                      Icon(Icons.signal_wifi_bad),
+                      SizedBox(width: 20),
+                      Text("Connection Error"),
+                    ],
+                  ),
+                  content: Text("you have no internet connection!"),
                   actions: [
-                    FlatButton(
+                    TextButton(
                       onPressed: () {
                         Navigator.of(ctx).pop();
+                        Navigator.of(context).pop();
+                        setState(() {
+                          _onWillPop = true;
+                        });
                       },
                       child: Text("okay"),
                     ),
@@ -54,34 +67,64 @@ class _SplashScreenState extends State<SplashScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Container(
-              padding: EdgeInsets.all(10),
-              width: 120,
-              height: 120,
-              alignment: Alignment.center,
-              child: SvgPicture.asset(
-                "assets/icons/virus.svg",
-                width: double.infinity,
-                height: double.infinity,
-                color: kPrimaryColor,
+    return WillPopScope(
+      onWillPop: () async {
+        return _onWillPop;
+      },
+      child: Scaffold(
+        backgroundColor: Theme.of(context).primaryColor,
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Container(
+                padding: EdgeInsets.all(10),
+                width: 120,
+                height: 120,
+                alignment: Alignment.center,
+                child: TweenAnimationBuilder<double>(
+                  tween: Tween(begin: 0.0, end: 1.0),
+                  duration: const Duration(milliseconds: 800),
+                  curve: Curves.bounceInOut,
+                  child: SvgPicture.asset(
+                    "assets/icons/virus.svg",
+                    width: double.infinity,
+                    height: double.infinity,
+                    color: Theme.of(context).accentColor,
+                  ),
+                  builder: (context, value, child) {
+                    return Transform.rotate(
+                      angle: (2 * pi) * value,
+                      child: Transform.scale(
+                        scale: value,
+                        child: child,
+                      ),
+                    );
+                  },
+                ),
               ),
-            ),
-            Text(
-              "NGAVITT",
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 26,
-                color: kPrimaryColor,
+              TweenAnimationBuilder<double>(
+                tween: Tween(begin: 1.0, end: 0.0),
+                duration: const Duration(milliseconds: 900),
+                curve: Curves.elasticOut,
+                child: Text(
+                  "NGAVITT",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 26,
+                    color: Theme.of(context).accentColor,
+                  ),
+                ),
+                builder: (context, value, child) {
+                  return Transform.translate(
+                    offset: Offset(0.0, 400 * value),
+                    child: child,
+                  );
+                },
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

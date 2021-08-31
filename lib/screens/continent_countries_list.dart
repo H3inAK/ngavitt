@@ -27,6 +27,7 @@ class ContinentCountriesList extends StatelessWidget {
         width: double.infinity,
         height: double.infinity,
         child: ListView.builder(
+          physics: BouncingScrollPhysics(),
           padding: EdgeInsets.symmetric(
             vertical: 6,
             horizontal: 4,

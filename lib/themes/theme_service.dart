@@ -22,7 +22,7 @@ class ThemeService {
     'darkBlue': darkBlueTheme,
   };
 
-  get initial {
+  ThemeData get initial {
     String themeName = prefs.getString('theme');
     if (themeName == null) {
       final isPlatformDark =
@@ -34,16 +34,20 @@ class ThemeService {
 
   String get previousThemeName {
     String themeName = prefs.getString('previousThemeName');
-    if (themeName == null) {
-      final isPlatformDark =
-          WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
-      themeName = isPlatformDark ? 'light' : 'dark';
-    }
+    // if (themeName == null) {
+    //   final isPlatformDark =
+    //       WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
+    //   themeName = isPlatformDark ? 'light' : 'dark';
+    // }
     return themeName;
   }
 
   save(String newThemeName) {
-    var currentThemeName = prefs.getString('theme');
+    final isPlatformDark =
+        WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
+    var themeName = isPlatformDark ? 'light' : 'dark';
+    var currentThemeName = prefs.getString('theme') ?? themeName;
+
     prefs.setString('previousThemeName', currentThemeName);
     prefs.setString('theme', newThemeName);
   }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/semantics.dart';
 
 import '../constants/data.dart';
 
@@ -64,7 +65,6 @@ class _PieChartCountryPageState extends State<PieChartCountryPage> {
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
-            color: textColor,
           ),
         )
       ],
@@ -86,11 +86,12 @@ class _PieChartCountryPageState extends State<PieChartCountryPage> {
                     pieTouchData: PieTouchData(
                       touchCallback: (pieTouchResponse) {
                         setState(() {
-                          if (pieTouchResponse.touchInput is FlLongPressEnd ||
-                              pieTouchResponse.touchInput is FlPanEnd) {
+                          if (pieTouchResponse.touchInput
+                              is LongPressSemanticsEvent) {
                             touchedIndex = -1;
                           } else {
-                            touchedIndex = pieTouchResponse.touchedSectionIndex;
+                            touchedIndex = pieTouchResponse
+                                .touchedSection.touchedSectionIndex;
                           }
                         });
                       },

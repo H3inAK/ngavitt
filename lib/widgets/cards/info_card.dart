@@ -22,8 +22,22 @@ class InfoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        return GestureDetector(
-          onTap: () {},
+        return TweenAnimationBuilder<double>(
+          tween: Tween(begin: 0.0, end: 1.0),
+          duration: const Duration(milliseconds: 800),
+          builder: (context, value, child) {
+            return GestureDetector(
+              onTap: () {},
+              child: AnimatedOpacity(
+                opacity: value.clamp(0.1, 1.0),
+                duration: const Duration(milliseconds: 400),
+                child: Transform.translate(
+                  offset: Offset(0.0, 40 * (1 - value)),
+                  child: child,
+                ),
+              ),
+            );
+          },
           child: Card(
             elevation: 4,
             child: Container(

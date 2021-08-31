@@ -18,6 +18,7 @@ class CountriesList extends StatelessWidget {
           builder: (ctx, countriesData, _) {
             print(countriesData.countries.length);
             return ListView.builder(
+              physics: BouncingScrollPhysics(),
               padding: EdgeInsets.symmetric(
                 vertical: 6,
                 horizontal: 4,
