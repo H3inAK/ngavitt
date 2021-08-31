@@ -40,7 +40,7 @@ Make a pull request to contribute with me 😉.<br>
 
 ## 📸 ScreenShots
 <img src="screenshots/splash_screen.jpg" alt="splash screen" width="400"> 
-<img src="screenshots/splash_screen1.jpg" alt="global status board" width="400">
+<img src="screenshots/splash_screen2.jpg" alt="global status board" width="400">
 
 <img src="screenshots/global_status.jpg" alt="splash screen" width="400"> 
 <img src="screenshots/global_status1.jpg" alt="splash screen" width="400"> 
