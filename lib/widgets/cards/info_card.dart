@@ -22,15 +22,28 @@ class InfoCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
-        return GestureDetector(
-          onTap: () {},
+        return TweenAnimationBuilder<double>(
+          tween: Tween(begin: 0.0, end: 1.0),
+          duration: const Duration(milliseconds: 800),
+          builder: (context, value, child) {
+            return GestureDetector(
+              onTap: () {},
+              child: AnimatedOpacity(
+                opacity: value.clamp(0.1, 1.0),
+                duration: const Duration(milliseconds: 400),
+                child: Transform.translate(
+                  offset: Offset(0.0, 40 * (1 - value)),
+                  child: child,
+                ),
+              ),
+            );
+          },
           child: Card(
             elevation: 4,
             child: Container(
               width: constraints.maxWidth / 2 - 10,
               // Here constraints.maxWidth provide us the available width for the widget
               decoration: BoxDecoration(
-                color: Colors.white,
                 borderRadius: BorderRadius.circular(8),
               ),
               child: SingleChildScrollView(
@@ -97,6 +110,10 @@ class InfoCard extends StatelessWidget {
                                     style: TextStyle(
                                       fontSize: 12,
                                       height: 2,
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .subtitle1
+                                          .color,
                                     ),
                                   ),
                                 ],

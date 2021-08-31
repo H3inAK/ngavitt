@@ -30,7 +30,7 @@ class _GlobalCasesDashboardState extends State<GlobalCasesDashboard> {
     return FutureBuilder<void>(
       future: _fetchGlobalStatus(context),
       builder: (ctx, dataSnapshot) {
-        print("inside futureBuilder()");
+        // print("inside futureBuilder()");
         if (dataSnapshot.connectionState == ConnectionState.waiting) {
           return Center(
             child: CircularProgressIndicator(),
@@ -40,10 +40,11 @@ class _GlobalCasesDashboardState extends State<GlobalCasesDashboard> {
             onRefresh: () => _fetchGlobalStatus(context),
             child: Consumer<GlobalStatusProvider>(
               builder: (ctx, globalStatusData, _) {
-                print("refreshGlobalStatus()");
+                // print("refreshGlobalStatus()");
                 return Container(
                   height: double.infinity,
                   child: GridView(
+                    physics: BouncingScrollPhysics(),
                     padding: EdgeInsets.only(bottom: 10),
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                       crossAxisCount: 2,
@@ -57,51 +58,51 @@ class _GlobalCasesDashboardState extends State<GlobalCasesDashboard> {
                         title: "Total Confirmed",
                         titleColor: Colors.orange[300],
                         cases: globalStatusData.globalStatus.totalConfirmed,
-                        iconColor: Colors.orange[100],
+                        iconColor: Colors.orangeAccent[100],
                       ),
                       InfoCard(
                         title: "New Confirmed",
                         titleColor: Colors.orange[300],
                         cases: globalStatusData.globalStatus.newConfirmed,
-                        iconColor: Colors.orange[100],
+                        iconColor: Colors.orangeAccent[100],
                       ),
                       InfoCard(
                         title: "Total Recovered",
                         titleColor: Colors.green[300],
                         cases: globalStatusData.globalStatus.totalRecovered,
-                        iconColor: Colors.green[100],
+                        iconColor: Colors.greenAccent[100],
                       ),
                       InfoCard(
                         title: "New Recovered",
                         titleColor: Colors.green[300],
                         cases: globalStatusData.globalStatus.newRecovered,
-                        iconColor: Colors.green[100],
+                        iconColor: Colors.greenAccent[100],
                       ),
                       InfoCard(
                         title: "Total Deaths",
                         titleColor: Colors.red[300],
                         cases: globalStatusData.globalStatus.totalDeaths,
-                        iconColor: Colors.red[100],
+                        iconColor: Colors.redAccent[100],
                       ),
                       InfoCard(
                         title: "New Deaths",
                         titleColor: Colors.red[300],
                         cases: globalStatusData.globalStatus.newDeaths,
-                        iconColor: Colors.red[100],
+                        iconColor: Colors.redAccent[100],
                       ),
                       if (_deviceSize.height >= 600)
                         InfoCard(
                           title: "Active Cases",
-                          titleColor: Colors.red[300],
+                          titleColor: Colors.pink[300],
                           cases: globalStatusData.globalStatus.activeCases,
-                          iconColor: Colors.red[100],
+                          iconColor: Colors.pinkAccent[100],
                         ),
                       if (_deviceSize.height >= 600)
                         InfoCard(
                           title: "Critical Cases",
-                          titleColor: Colors.red[300],
+                          titleColor: Colors.pink[300],
                           cases: globalStatusData.globalStatus.criticalCases,
-                          iconColor: Colors.red[100],
+                          iconColor: Colors.pinkAccent[100],
                         ),
                     ],
                   ),

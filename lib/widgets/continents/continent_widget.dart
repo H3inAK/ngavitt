@@ -36,6 +36,7 @@ class Continents extends StatelessWidget {
         ),
         Expanded(
           child: GridView.builder(
+            physics: BouncingScrollPhysics(),
             padding: EdgeInsets.symmetric(horizontal: 20),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 2,

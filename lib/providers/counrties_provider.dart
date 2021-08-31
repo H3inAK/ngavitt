@@ -6,7 +6,7 @@ import 'package:http/http.dart' as http;
 import '../models/counrty_status.dart';
 
 class CountriesProvider with ChangeNotifier {
-  List<CountryStatus> _countries = List();
+  List<CountryStatus> _countries = <CountryStatus>[];
 
   List<CountryStatus> get countries {
     return [..._countries];
