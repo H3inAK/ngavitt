@@ -1,5 +1,7 @@
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/semantics.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +18,7 @@ class PieChartPage extends StatefulWidget {
 class _PieChartPageState extends State<PieChartPage> {
   int touchedIndex;
   GlobalStatus globalStatus = GlobalStatus();
-  List<ChartData> data = List<ChartData>();
+  List<ChartData> data = [];
 
   @override
   void initState() {
@@ -93,7 +95,7 @@ class _PieChartPageState extends State<PieChartPage> {
           style: TextStyle(
             fontSize: 16,
             fontWeight: FontWeight.bold,
-            color: textColor,
+            color: Theme.of(context).textTheme.caption.color,
           ),
         )
       ],
@@ -102,83 +104,90 @@ class _PieChartPageState extends State<PieChartPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      drawer: AppDrawer(),
-      appBar: AppBar(
-        leading: Builder(
-          builder: (ctx) {
-            return IconButton(
-              icon: SvgPicture.asset(
-                "assets/icons/menu.svg",
-                color: Theme.of(context).accentColor,
-                width: 20,
-              ),
-              onPressed: () {
-                Scaffold.of(ctx).openDrawer();
-              },
-            );
-          },
-        ),
-        title: Text(
-          "GLOBAL CHART STATUS",
-          style: TextStyle(
-            color: Theme.of(context).accentColor,
+    return ThemeSwitchingArea(
+      child: Scaffold(
+        drawer: AppDrawer(),
+        appBar: AppBar(
+          leading: Builder(
+            builder: (ctx) {
+              return IconButton(
+                icon: SvgPicture.asset(
+                  "assets/icons/menu.svg",
+                  color: Theme.of(context).accentColor,
+                  width: 20,
+                ),
+                onPressed: () {
+                  Scaffold.of(ctx).openDrawer();
+                },
+              );
+            },
           ),
+          title: Text(
+            "GLOBAL CHART STATUS",
+            style: TextStyle(
+              color: Theme.of(context).accentColor,
+            ),
+          ),
+          centerTitle: true,
+          elevation: 0.2,
         ),
-        centerTitle: true,
-        elevation: 0.2,
-      ),
-      body: Container(
-        child: Card(
-          child: Column(
-            children: <Widget>[
-              Container(
-                width: double.infinity,
-                height: 360,
-                child: PieChart(
-                  PieChartData(
-                    pieTouchData: PieTouchData(
-                      touchCallback: (pieTouchResponse) {
-                        setState(() {
-                          if (pieTouchResponse.touchInput is FlLongPressEnd ||
-                              pieTouchResponse.touchInput is FlPanEnd) {
-                            touchedIndex = -1;
-                          } else {
-                            touchedIndex = pieTouchResponse.touchedSectionIndex;
-                          }
-                        });
-                      },
+        body: Container(
+          child: Card(
+            color: Theme.of(context).scaffoldBackgroundColor,
+            child: Column(
+              children: <Widget>[
+                Container(
+                  width: double.infinity,
+                  height: 360,
+                  child: PieChart(
+                    PieChartData(
+                      pieTouchData: PieTouchData(
+                        touchCallback: (pieTouchResponse) {
+                          setState(() {
+                            if (pieTouchResponse.touchInput
+                                    is LongPressSemanticsEvent ||
+                                pieTouchResponse.touchInput
+                                    is LongPressEndDetails) {
+                              touchedIndex = -1;
+                            } else {
+                              touchedIndex = pieTouchResponse
+                                  .touchedSection.touchedSectionIndex;
+                            }
+                          });
+                        },
+                      ),
+                      borderData: FlBorderData(show: false),
+                      sectionsSpace: 0.2,
+                      centerSpaceRadius: 32,
+                      sections: getSections(touchedIndex),
                     ),
-                    borderData: FlBorderData(show: false),
-                    sectionsSpace: 0.2,
-                    centerSpaceRadius: 32,
-                    sections: getSections(touchedIndex),
                   ),
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: data
-                          .map(
-                            (data) => Container(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: data
+                            .map(
+                              (data) => Container(
                                 padding: EdgeInsets.symmetric(vertical: 2),
                                 child: buildIndicator(
                                   color: data.color,
                                   text: data.name,
                                   // isSquare: true,
-                                )),
-                          )
-                          .toList(),
+                                ),
+                              ),
+                            )
+                            .toList(),
+                      ),
                     ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

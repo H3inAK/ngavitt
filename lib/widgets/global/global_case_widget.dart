@@ -1,7 +1,8 @@
+import 'dart:math';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-import '../../constants/constants.dart';
 import './global_cases_dashboard.dart';
 
 class GlobalCaseCard extends StatefulWidget {
@@ -9,7 +10,21 @@ class GlobalCaseCard extends StatefulWidget {
   _GlobalCaseCardState createState() => _GlobalCaseCardState();
 }
 
-class _GlobalCaseCardState extends State<GlobalCaseCard> {
+class _GlobalCaseCardState extends State<GlobalCaseCard>
+    with SingleTickerProviderStateMixin {
+  AnimationController _rotationAnimationListener;
+
+  @override
+  void initState() {
+    _rotationAnimationListener = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+      lowerBound: 0.0,
+      upperBound: 2.0,
+    );
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
@@ -23,18 +38,36 @@ class _GlobalCaseCardState extends State<GlobalCaseCard> {
             ),
             Container(
               height: cst.maxHeight * 0.1,
-              child: RaisedButton.icon(
+              child: OutlinedButton.icon(
+                style: ElevatedButton.styleFrom(
+                  side: BorderSide(
+                    color: Theme.of(context).accentColor,
+                    width: 2,
+                  ),
+                ),
                 onPressed: () {
                   setState(() {});
                 },
-                color: kPrimaryColor,
-                icon: Icon(
-                  Icons.rotate_right,
-                  color: Colors.white,
+                // the parent is already stateful and for that
+                // we use AnimatedBuilder to performace optimization
+                icon: AnimatedBuilder(
+                  animation: _rotationAnimationListener,
+                  builder: (ctx, child) {
+                    return Transform.rotate(
+                      angle: (pi * 2) * _rotationAnimationListener.value,
+                      child: child,
+                    );
+                  },
+                  child: Icon(
+                    Icons.rotate_right,
+                    color: Theme.of(context).accentColor,
+                  ),
                 ),
                 label: Text(
                   "Refresh Cases",
-                  style: TextStyle(color: Colors.white),
+                  style: TextStyle(
+                    color: Theme.of(context).accentColor,
+                  ),
                 ),
               ),
             ),

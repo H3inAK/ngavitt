@@ -15,8 +15,8 @@ class SearchScreen extends StatefulWidget {
 
 class _SearchScreenState extends State<SearchScreen> {
   TextEditingController textEditingController = TextEditingController();
-  var _countries = List<CountryStatus>();
-  var _backupCountries = List<CountryStatus>();
+  var _countries = <CountryStatus>[];
+  var _backupCountries = <CountryStatus>[];
   var _isQueryEmpty = true;
 
   @override
@@ -30,14 +30,14 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   void _filterSearchResult(String query) {
-    List<CountryStatus> dummySearchList = List<CountryStatus>();
+    List<CountryStatus> dummySearchList = <CountryStatus>[];
     if (dummySearchList.isNotEmpty) dummySearchList.clear();
     dummySearchList.addAll(_backupCountries);
 
     if (query.isNotEmpty) {
       // .. do search for countries
       // print(query);
-      List<CountryStatus> dummyListData = List<CountryStatus>();
+      List<CountryStatus> dummyListData = <CountryStatus>[];
       dummySearchList.forEach((item) {
         if (item.countryName.toLowerCase().contains(query.toLowerCase())) {
           dummyListData.add(item);
@@ -81,17 +81,14 @@ class _SearchScreenState extends State<SearchScreen> {
               controller: textEditingController,
               autofocus: true,
               textAlign: TextAlign.left,
-              style: const TextStyle(color: Colors.black),
               textAlignVertical: TextAlignVertical.center,
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.only(top: 4),
                 prefixIcon: const Icon(
                   Icons.search,
-                  color: Colors.black26,
                 ),
                 hintText: "search country by name .....",
-                hintStyle: const TextStyle(color: Colors.black38),
-                fillColor: Colors.grey[100],
+                fillColor: Theme.of(context).scaffoldBackgroundColor,
                 filled: true,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(10),

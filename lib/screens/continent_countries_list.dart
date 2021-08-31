@@ -17,13 +17,17 @@ class ContinentCountriesList extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(continentName + " Countries"),
+        title: Text(
+          continentName + " Countries",
+          style: Theme.of(context).textTheme.headline6,
+        ),
         elevation: 0.2,
       ),
       body: Container(
         width: double.infinity,
         height: double.infinity,
         child: ListView.builder(
+          physics: BouncingScrollPhysics(),
           padding: EdgeInsets.symmetric(
             vertical: 6,
             horizontal: 4,
