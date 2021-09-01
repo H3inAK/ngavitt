@@ -12,9 +12,12 @@ enum SortingType {
 
 class CountriesProvider with ChangeNotifier {
   List<CountryStatus> _countries = <CountryStatus>[];
+<<<<<<< HEAD
   SortingType _sortType = SortingType.active;
 
   SortingType get sortType => _sortType;
+=======
+>>>>>>> 5ff5c4ff7e27508d350b8579bf4694ea758b528e
 
   List<CountryStatus> get countries {
     return [..._countries];

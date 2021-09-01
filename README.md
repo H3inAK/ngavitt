@@ -40,7 +40,11 @@ Make a pull request to contribute with me 😉.<br>
 
 ## 📸 ScreenShots
 <img src="screenshots/splash_screen.jpg" alt="splash screen" width="400"> 
+<<<<<<< HEAD
 <img src="screenshots/splash_screen1.jpg" alt="global status board" width="400">
+=======
+<img src="screenshots/splash_screen2.jpg" alt="global status board" width="400">
+>>>>>>> 5ff5c4ff7e27508d350b8579bf4694ea758b528e
 
 <img src="screenshots/global_status.jpg" alt="splash screen" width="400"> 
 <img src="screenshots/global_status1.jpg" alt="splash screen" width="400"> 
@@ -57,8 +61,13 @@ Make a pull request to contribute with me 😉.<br>
 <img src="screenshots/continents.jpg" alt="continents" width="400"> 
 <img src="screenshots/continents1.jpg" alt="continents" width="400">
 
+<<<<<<< HEAD
 <img src="screenshots/continent_countries.jpg" alt="continent countries" width="400"> 
 <img src="screenshots/continent_countries1.jpg" alt="continent countries" width="400"> 
+=======
+<img src="screenshots/continents_countries.jpg" alt="continent countries" width="400"> 
+<img src="screenshots/continents_countries1.jpg" alt="continent countries" width="400"> 
+>>>>>>> 5ff5c4ff7e27508d350b8579bf4694ea758b528e
 
 <img src="screenshots/country.jpg" alt="myanmar covid-19 status" width="400"> 
 <img src="screenshots/country1.jpg" alt="myanmar covid-19 status" width="400"> 
@@ -67,8 +76,12 @@ Make a pull request to contribute with me 😉.<br>
 <img src="screenshots/country_piechart1.jpg" alt="as a chart" width="400">
 
 <img src="screenshots/searching.jpg" alt="search countries by name" width="400"> 
+<<<<<<< HEAD
 <img src="screenshots/searching1.jpg" alt="search countries by name" width="400"> 
 
+=======
+<img src="screenshots/searching2.jpg" alt="search countries by name" width="400"> 
+>>>>>>> 5ff5c4ff7e27508d350b8579bf4694ea758b528e
 
 <img src="screenshots/prevention.jpg" alt="prevention screen" width="400"> 
 <img src="screenshots/prevention1.jpg" alt="prevention screen" width="400"> 
