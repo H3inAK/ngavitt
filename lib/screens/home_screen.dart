@@ -48,6 +48,7 @@ class HomeScreen extends StatelessWidget {
             Navigator.of(context).push(
               FadedPageRoute(
                 child: SearchScreen(),
+                duration: const Duration(milliseconds: 20),
               ),
             );
           },
@@ -56,20 +57,24 @@ class HomeScreen extends StatelessWidget {
     );
 
     return ThemeSwitchingArea(
-      child: Scaffold(
-        drawer: AppDrawer(),
-        appBar: appBar,
-        body: Stack(
-          children: [
-            Container(
-              padding:
-                  EdgeInsets.only(left: 10, top: 18, right: 10, bottom: 20),
-              width: double.infinity,
-              color: Color(0xFF53627C).withOpacity(0.02),
-              child: GlobalCaseCard(),
-            ),
-            buildBottomAnimatedActionBar(deviceSize, context),
-          ],
+      child: Builder(
+        builder: (context) => Scaffold(
+          drawer: AppDrawer(),
+          appBar: appBar,
+          body: Column(
+            children: [
+              Expanded(
+                child: Container(
+                  padding:
+                      EdgeInsets.only(left: 10, top: 18, right: 10, bottom: 20),
+                  width: double.infinity,
+                  color: Color(0xFF53627C).withOpacity(0.02),
+                  child: GlobalCaseCard(),
+                ),
+              ),
+              buildBottomAnimatedActionBar(deviceSize, context),
+            ],
+          ),
         ),
       ),
     );

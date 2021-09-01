@@ -42,6 +42,7 @@ class InfoCard extends StatelessWidget {
             elevation: 4,
             child: Container(
               width: constraints.maxWidth / 2 - 10,
+              // width: 300,
               // Here constraints.maxWidth provide us the available width for the widget
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),

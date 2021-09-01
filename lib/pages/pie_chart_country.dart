@@ -75,7 +75,7 @@ class _PieChartCountryPageState extends State<PieChartCountryPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.all(8),
+        padding: EdgeInsets.zero,
         child: Card(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,

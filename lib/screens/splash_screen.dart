@@ -26,6 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
               (_) => Navigator.of(context).pushReplacement(
                 FadedPageRoute(
                   child: HomeScreen(),
+                  duration: const Duration(milliseconds: 200),
                 ),
               ),
             )

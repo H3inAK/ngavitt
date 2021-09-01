@@ -7,7 +7,7 @@ packages:
       name: animated_theme_switcher
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.0.1"
+    version: "1.0.9"
   async:
     dependency: transitive
     description:

@@ -1,8 +1,11 @@
+import 'package:covid19app/providers/counrties_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../../models/counrty_status.dart';
-import '../../screens/country_detailed.dart';
+import '../../helpers/custom_routes.dart';
+import '../../screens/country_covid_status_details.dart';
 
 class CountryItem extends StatelessWidget {
   final CountryStatus countryStatus;
@@ -12,23 +15,31 @@ class CountryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SortingType sortingType = Provider.of<CountriesProvider>(context).sortType;
+
     return Card(
       elevation: 8,
       child: ListTile(
         onTap: () {
-          // Navigator.of(context).push(
-          //   CupertinoPageRoute(
-          //     builder: (ctx) => CountryDetailsScreen(countryStatus.countryName),
-          //   ),
-          // );
-          Navigator.of(context).pushNamed(
-            CountryDetailsScreen.routeName,
-            arguments: countryStatus.countryName,
+          Navigator.of(context).push(
+            SimplePageRoute(
+              builder: (ctx) => CountryCovidStatusDetails(
+                countryStatus: countryStatus,
+              ),
+              duration: const Duration(milliseconds: 600),
+            ),
           );
+          // Navigator.of(context).pushNamed(
+          //   CountryDetailsScreen.routeName,
+          //   arguments: countryStatus.countryName,
+          // );
         },
-        leading: CircleAvatar(
-          backgroundImage: NetworkImage(
-            countryStatus.countryFlag,
+        leading: Hero(
+          tag: countryStatus.countryName ?? ValueKey(countryStatus.countryFlag),
+          child: CircleAvatar(
+            backgroundImage: NetworkImage(
+              countryStatus.countryFlag,
+            ),
           ),
         ),
         title: counter == null
@@ -60,7 +71,9 @@ class CountryItem extends StatelessWidget {
                   ),
                 ],
               ),
-        subtitle: Text("active cases - " + countryStatus.active.toString()),
+        subtitle: sortingType == SortingType.active
+            ? Text("active cases - " + countryStatus.active.toString())
+            : Text("total cases - " + countryStatus.cases.toString()),
         trailing: Icon(
           Icons.arrow_forward_ios,
           color: Theme.of(context).accentColor,

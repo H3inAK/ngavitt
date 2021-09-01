@@ -25,7 +25,10 @@ class CountriesList extends StatelessWidget {
               ),
               itemCount: countriesData.countries.length,
               itemBuilder: (ctx, i) {
-                return CountryItem(countriesData.countries[i], i);
+                return CountryItem(
+                  countriesData.countries[i],
+                  i,
+                );
               },
             );
           },

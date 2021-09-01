@@ -55,6 +55,9 @@ class _AppDrawerState extends State<AppDrawer>
                     Icons.home_filled,
                     "See All Status",
                     () => Navigator.of(context).pushReplacement(
+                      // FadedPageRoute(
+                      //   child: HomeScreen(),
+                      // ),
                       CustomRoute(
                         builder: (ctx) => HomeScreen(),
                       ),
@@ -64,11 +67,8 @@ class _AppDrawerState extends State<AppDrawer>
                     Icons.masks_sharp,
                     "Preventions",
                     () => Navigator.of(context).pushReplacement(
-                      PopupScalePageRoute(
-                        child: PreventationScreen(),
-                        duration: const Duration(
-                          milliseconds: 200,
-                        ),
+                      CustomRoute(
+                        builder: (ctx) => PreventationScreen(),
                       ),
                     ),
                   ),
@@ -121,9 +121,9 @@ class _AppDrawerState extends State<AppDrawer>
               );
             },
             child: AnimatedSwitcher(
-              duration: const Duration(milliseconds: 3000),
-              switchOutCurve: Curves.easeInOut,
-              switchInCurve: Curves.easeInOutCubic,
+              duration: const Duration(milliseconds: 800),
+              switchOutCurve: Curves.elasticIn,
+              switchInCurve: Curves.elasticOut,
               transitionBuilder: (child, animation) {
                 return SizeTransition(
                   sizeFactor: animation,
@@ -131,14 +131,14 @@ class _AppDrawerState extends State<AppDrawer>
                   child: child,
                 );
               },
-              layoutBuilder: (currentChild, previousChildren) {
-                return Column(
-                  children: [
-                    ...previousChildren,
-                    currentChild,
-                  ],
-                );
-              },
+              // layoutBuilder: (currentChild, previousChildren) {
+              //   return Column(
+              //     children: [
+              //       ...previousChildren,
+              //       currentChild,
+              //     ],
+              //   );
+              // },
               child: themeName == 'dark' ? darkIcon : lightIcon,
             ),
           );

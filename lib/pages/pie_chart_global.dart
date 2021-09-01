@@ -177,7 +177,6 @@ class _PieChartPageState extends State<PieChartPage> {
                                 child: buildIndicator(
                                   color: data.color,
                                   text: data.name,
-                                  // isSquare: true,
                                 ),
                               ),
                             )

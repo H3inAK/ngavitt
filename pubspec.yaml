@@ -27,7 +27,7 @@ dependencies:
   provider: ^4.3.2+3
   flutter_svg: ^0.22.0
   fl_chart: 
-  animated_theme_switcher: 
+  animated_theme_switcher: "^1.0.5"
   shared_preferences:
 
   # The following adds the Cupertino Icons font to your application.

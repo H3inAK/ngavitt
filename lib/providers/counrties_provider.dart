@@ -5,8 +5,16 @@ import 'package:http/http.dart' as http;
 
 import '../models/counrty_status.dart';
 
+enum SortingType {
+  active,
+  total,
+}
+
 class CountriesProvider with ChangeNotifier {
   List<CountryStatus> _countries = <CountryStatus>[];
+  SortingType _sortType = SortingType.active;
+
+  SortingType get sortType => _sortType;
 
   List<CountryStatus> get countries {
     return [..._countries];
@@ -45,6 +53,7 @@ class CountriesProvider with ChangeNotifier {
   void sortByActiveCases({bool isAcse}) {
     _countries.sort((a, b) => a.active.compareTo(b.active));
     _countries = isAcse ? _countries : _countries.reversed.toList();
+    _sortType = SortingType.active;
 
     notifyListeners();
   }
@@ -52,6 +61,7 @@ class CountriesProvider with ChangeNotifier {
   void sortByTotalCases({bool isAcse}) {
     _countries.sort((a, b) => a.cases.compareTo(b.cases));
     _countries = isAcse ? _countries : _countries.reversed.toList();
+    _sortType = SortingType.total;
 
     notifyListeners();
   }

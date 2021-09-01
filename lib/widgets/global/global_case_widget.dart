@@ -22,7 +22,18 @@ class _GlobalCaseCardState extends State<GlobalCaseCard>
       lowerBound: 0.0,
       upperBound: 2.0,
     );
+    _rotationAnimationListener.addStatusListener((status) {
+      if (status == AnimationStatus.completed) {
+        _rotationAnimationListener.reset();
+      }
+    });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _rotationAnimationListener.dispose();
+    super.dispose();
   }
 
   @override
@@ -47,6 +58,7 @@ class _GlobalCaseCardState extends State<GlobalCaseCard>
                 ),
                 onPressed: () {
                   setState(() {});
+                  _rotationAnimationListener.forward();
                 },
                 // the parent is already stateful and for that
                 // we use AnimatedBuilder to performace optimization

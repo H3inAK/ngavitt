@@ -70,6 +70,36 @@ class PreventationScreen extends StatelessWidget {
         ),
       ),
     );
+    // return ThemeSwitchingArea(
+    //   child: Scaffold(
+    //     drawer: AppDrawer(),
+    //     appBar: AppBar(
+    //       leading: Builder(
+    //         builder: (ctx) {
+    //           return IconButton(
+    //             icon: SvgPicture.asset(
+    //               "assets/icons/menu.svg",
+    //               color: Theme.of(context).accentColor,
+    //               width: 20,
+    //             ),
+    //             onPressed: () {
+    //               Scaffold.of(ctx).openDrawer();
+    //             },
+    //           );
+    //         },
+    //       ),
+    //       title: Text(
+    //         "GLOBAL CHART STATUS",
+    //         style: TextStyle(
+    //           color: Theme.of(context).accentColor,
+    //         ),
+    //       ),
+    //       centerTitle: true,
+    //       elevation: 0.2,
+    //     ),
+    //     body: Container(),
+    //   ),
+    // );
   }
 
   Container buildHelpCard(BuildContext context) {

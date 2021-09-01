@@ -1,4 +1,42 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+class SimplePageRoute<T> extends PageRoute<T>
+    with MaterialRouteTransitionMixin {
+  final WidgetBuilder builder;
+  final Duration duration;
+  final bool stateMaintain;
+
+  SimplePageRoute({
+    @required this.builder,
+    @required this.duration,
+    this.stateMaintain,
+  });
+
+  @override
+  Widget buildContent(BuildContext context) => builder(context);
+
+  @override
+  Duration get transitionDuration => duration;
+
+  @override
+  bool get maintainState => stateMaintain ?? true;
+}
+
+class CustomPageTransactionBuilder extends PageTransitionsBuilder {
+  @override
+  Widget buildTransitions<T>(
+      PageRoute<T> route,
+      BuildContext context,
+      Animation<double> animation,
+      Animation<double> secondaryAnimation,
+      Widget child) {
+    return SizeTransition(
+      sizeFactor: animation,
+      child: child,
+    );
+  }
+}
 
 class CustomRoute<T> extends MaterialPageRoute<T> {
   CustomRoute({
@@ -17,21 +55,6 @@ class CustomRoute<T> extends MaterialPageRoute<T> {
         parent: animation,
         curve: Curves.bounceInOut,
       ),
-      child: child,
-    );
-  }
-}
-
-class CustomPageTransactionBuilder extends PageTransitionsBuilder {
-  @override
-  Widget buildTransitions<T>(
-      PageRoute<T> route,
-      BuildContext context,
-      Animation<double> animation,
-      Animation<double> secondaryAnimation,
-      Widget child) {
-    return SizeTransition(
-      sizeFactor: animation,
       child: child,
     );
   }
