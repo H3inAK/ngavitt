@@ -18,6 +18,7 @@ class CountryCovidStatusDetails extends StatefulWidget {
 
 class _CountryCovidStatusDetailsState extends State<CountryCovidStatusDetails> {
   PageController _pageController;
+  var _currentPage = 0;
 
   @override
   void initState() {
@@ -80,6 +81,11 @@ class _CountryCovidStatusDetailsState extends State<CountryCovidStatusDetails> {
     return Scaffold(
       body: PageView(
         controller: _pageController,
+        onPageChanged: (page) {
+          setState(() {
+            _currentPage = page;
+          });
+        },
         children: [
           CustomScrollView(
             physics: BouncingScrollPhysics(),
@@ -167,12 +173,14 @@ class _CountryCovidStatusDetailsState extends State<CountryCovidStatusDetails> {
                     _pageController.animateToPage(
                       0,
                       duration: Duration(milliseconds: 500),
-                      curve: Curves.easeIn,
+                      curve: Curves.fastLinearToSlowEaseIn,
                     );
                   },
                   icon: Icon(
                     Icons.bar_chart_rounded,
-                    color: Theme.of(context).accentColor,
+                    color: _currentPage == 0
+                        ? Theme.of(context).accentColor
+                        : Colors.white,
                   ),
                 ),
                 IconButton(
@@ -180,12 +188,14 @@ class _CountryCovidStatusDetailsState extends State<CountryCovidStatusDetails> {
                     _pageController.animateToPage(
                       1,
                       duration: Duration(milliseconds: 500),
-                      curve: Curves.easeOut,
+                      curve: Curves.linear,
                     );
                   },
                   icon: Icon(
                     Icons.data_usage,
-                    color: Theme.of(context).accentColor,
+                    color: _currentPage == 1
+                        ? Theme.of(context).accentColor
+                        : Colors.white,
                   ),
                 )
               ],
