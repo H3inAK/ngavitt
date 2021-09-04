@@ -1,9 +1,11 @@
 import 'package:covid19app/constants/data.dart';
 import 'package:covid19app/models/counrty_status.dart';
 import 'package:covid19app/pages/pie_chart_country.dart';
+import 'package:covid19app/providers/country_status_provider.dart';
 import 'package:covid19app/widgets/cards/info_card.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class CountryCovidStatusDetails extends StatefulWidget {
   final CountryStatus countryStatus;
@@ -87,118 +89,148 @@ class _CountryCovidStatusDetailsState extends State<CountryCovidStatusDetails> {
           });
         },
         children: [
-          CustomScrollView(
-            physics: BouncingScrollPhysics(),
-            slivers: [
-              buildSliverAppBar(context),
-              if (deviceSize.width < 350)
-                SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (ctx, index) {
-                      return InfoCard(
-                        cases: allstatus[index]["cases"],
-                        title: allstatus[index]["title"],
-                        iconColor: allstatus[index]["color"],
-                        titleColor: allstatus[index]["color"],
-                      );
-                    },
-                    childCount: allstatus.length,
-                  ),
-                ),
-              if (deviceSize.width > 350 && deviceSize.width <= 600)
-                SliverPadding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 8, vertical: 10),
-                  sliver: SliverGrid(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      childAspectRatio:
-                          deviceSize.height >= 600 ? (3.14 / 2) : (2.9 / 2),
-                      crossAxisCount: 2,
-                    ),
-                    delegate: SliverChildBuilderDelegate(
-                      (ctx, index) {
-                        return InfoCard(
-                          cases: allstatus[index]["cases"],
-                          title: allstatus[index]["title"],
-                          iconColor: allstatus[index]["color"],
-                          titleColor: allstatus[index]["color"],
-                        );
-                      },
-                      childCount: allstatus.length,
+          RefreshIndicator(
+            onRefresh: () async {
+              await Provider.of<CountryStatusProvider>(context, listen: false)
+                  .fetchAndSetCountryStatus(widget.countryStatus.countryName);
+            },
+            child: CustomScrollView(
+              physics: BouncingScrollPhysics(),
+              slivers: [
+                buildSliverAppBar(context),
+                if (deviceSize.width < 350)
+                  SliverPadding(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 6, horizontal: 4),
+                    sliver: SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (ctx, index) {
+                          return InfoCard(
+                            cases: allstatus[index]["cases"],
+                            title: allstatus[index]["title"],
+                            iconColor: allstatus[index]["color"],
+                            titleColor: allstatus[index]["color"],
+                          );
+                        },
+                        childCount: allstatus.length,
+                      ),
                     ),
                   ),
-                ),
-              if (deviceSize.width > 600 && deviceSize.width <= 1200)
-                SliverPadding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
-                  sliver: SliverGrid(
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      childAspectRatio:
-                          deviceSize.height >= 600 ? (3.14 / 2) : (2.9 / 2),
-                    ),
-                    delegate: SliverChildBuilderDelegate(
-                      (ctx, index) {
-                        return InfoCard(
-                          cases: allstatus[index]["cases"],
-                          title: allstatus[index]["title"],
-                          iconColor: allstatus[index]["color"],
-                          titleColor: allstatus[index]["color"],
-                        );
-                      },
-                      childCount: allstatus.length,
+                if (deviceSize.width > 350 && deviceSize.width <= 600)
+                  SliverPadding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 6, vertical: 10),
+                    sliver: SliverGrid(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        childAspectRatio:
+                            deviceSize.height >= 600 ? (3.14 / 2) : (2.9 / 2),
+                        crossAxisCount: 2,
+                      ),
+                      delegate: SliverChildBuilderDelegate(
+                        (ctx, index) {
+                          return InfoCard(
+                            cases: allstatus[index]["cases"],
+                            title: allstatus[index]["title"],
+                            iconColor: allstatus[index]["color"],
+                            titleColor: allstatus[index]["color"],
+                          );
+                        },
+                        childCount: allstatus.length,
+                      ),
                     ),
                   ),
-                ),
-            ],
+                if (deviceSize.width > 600 && deviceSize.width <= 1200)
+                  SliverPadding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 14),
+                    sliver: SliverGrid(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        childAspectRatio:
+                            deviceSize.height >= 600 ? (3.14 / 2) : (2.9 / 2),
+                      ),
+                      delegate: SliverChildBuilderDelegate(
+                        (ctx, index) {
+                          return InfoCard(
+                            cases: allstatus[index]["cases"],
+                            title: allstatus[index]["title"],
+                            iconColor: allstatus[index]["color"],
+                            titleColor: allstatus[index]["color"],
+                          );
+                        },
+                        childCount: allstatus.length,
+                      ),
+                    ),
+                  ),
+              ],
+            ),
           ),
           buildPieChartCountryPage(widget.countryStatus),
         ],
       ),
-      bottomNavigationBar: ClipRRect(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(10),
-          topRight: Radius.circular(10),
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          border: Border(
+            top: BorderSide(
+              color: Theme.of(context).accentColor,
+              width: 2.5,
+            ),
+          ),
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
+          ),
         ),
-        child: BottomAppBar(
-          color: Theme.of(context).primaryColor,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 2.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                IconButton(
-                  onPressed: () {
-                    _pageController.animateToPage(
-                      0,
-                      duration: Duration(milliseconds: 500),
-                      curve: Curves.fastLinearToSlowEaseIn,
-                    );
-                  },
-                  icon: Icon(
-                    Icons.bar_chart_rounded,
-                    color: _currentPage == 0
-                        ? Theme.of(context).accentColor
-                        : Colors.white,
+        child: ClipRRect(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
+          ),
+          child: BottomAppBar(
+            color: Theme.of(context).primaryColor,
+            elevation: 40,
+            child: Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 2.0,
+                vertical: 6,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  IconButton(
+                    onPressed: () {
+                      _pageController.animateToPage(
+                        0,
+                        duration: Duration(milliseconds: 500),
+                        curve: Curves.linear,
+                      );
+                    },
+                    icon: Icon(
+                      Icons.bar_chart_rounded,
+                      size: _currentPage == 0 ? 32 : 28,
+                      color: _currentPage == 0
+                          ? Theme.of(context).accentColor
+                          : Colors.grey,
+                    ),
                   ),
-                ),
-                IconButton(
-                  onPressed: () {
-                    _pageController.animateToPage(
-                      1,
-                      duration: Duration(milliseconds: 500),
-                      curve: Curves.linear,
-                    );
-                  },
-                  icon: Icon(
-                    Icons.data_usage,
-                    color: _currentPage == 1
-                        ? Theme.of(context).accentColor
-                        : Colors.white,
+                  IconButton(
+                    onPressed: () {
+                      _pageController.animateToPage(
+                        1,
+                        duration: Duration(milliseconds: 500),
+                        curve: Curves.linear,
+                      );
+                    },
+                    icon: Icon(
+                      Icons.data_usage,
+                      size: _currentPage == 1 ? 32 : 28,
+                      color: _currentPage == 1
+                          ? Theme.of(context).accentColor
+                          : Colors.grey,
+                    ),
                   ),
-                )
-              ],
+                ],
+              ),
             ),
           ),
         ),
@@ -214,7 +246,7 @@ class _CountryCovidStatusDetailsState extends State<CountryCovidStatusDetails> {
           margin: EdgeInsets.only(left: 10),
           child: CircleAvatar(
             radius: 60,
-            backgroundColor: Colors.black54,
+            backgroundColor: Theme.of(context).primaryColor.withOpacity(0.7),
             child: Icon(
               Icons.arrow_back,
               color: Theme.of(context).accentColor,

@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:covid19app/screens/about_me.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -81,6 +82,15 @@ class _AppDrawerState extends State<AppDrawer>
                       // ),
                       CustomRoute(
                         builder: (ctx) => PieChartPage(),
+                      ),
+                    ),
+                  ),
+                  buildDrawerItem(
+                    Icons.insert_chart_rounded,
+                    "Global PieChart",
+                    () => Navigator.of(context).pushReplacement(
+                      CustomRoute(
+                        builder: (ctx) => AboutAuthor(),
                       ),
                     ),
                   ),

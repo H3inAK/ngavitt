@@ -34,7 +34,11 @@ class ContinentCountriesList extends StatelessWidget {
           ),
           itemCount: countries.length,
           itemBuilder: (ctx, i) {
-            return CountryItem(countries[i], i);
+            return CountryItem(
+              countryStatus: countries[i],
+              counter: i,
+              isAninmate: true,
+            );
           },
         ),
       ),

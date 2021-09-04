@@ -24,8 +24,8 @@ class _SplashScreenState extends State<SplashScreen> {
             .fetchAndSetCountriesData()
             .then(
               (_) => Navigator.of(context).pushReplacement(
-                FadedPageRoute(
-                  child: HomeScreen(),
+                SimplePageRoute(
+                  builder: (ctx) => HomeScreen(),
                   duration: const Duration(milliseconds: 200),
                 ),
               ),

@@ -122,7 +122,7 @@ class _SearchScreenState extends State<SearchScreen> {
                     bottom: 5,
                   ),
                   itemBuilder: (ctx, i) {
-                    return CountryItem(_countries[i]);
+                    return CountryItem(countryStatus: _countries[i]);
                   },
                   itemCount: _countries.length,
                 ),
