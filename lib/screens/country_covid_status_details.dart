@@ -168,69 +168,55 @@ class _CountryCovidStatusDetailsState extends State<CountryCovidStatusDetails> {
           buildPieChartCountryPage(widget.countryStatus),
         ],
       ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          border: Border(
-            top: BorderSide(
-              color: Theme.of(context).accentColor,
-              width: 2.5,
-            ),
-          ),
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(10),
-            topRight: Radius.circular(10),
-          ),
+      bottomNavigationBar: ClipRRect(
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
         ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(10),
-            topRight: Radius.circular(10),
-          ),
-          child: BottomAppBar(
-            color: Theme.of(context).primaryColor,
-            elevation: 40,
-            child: Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 2.0,
-                vertical: 6,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      _pageController.animateToPage(
-                        0,
-                        duration: Duration(milliseconds: 500),
-                        curve: Curves.linear,
-                      );
-                    },
-                    icon: Icon(
-                      Icons.bar_chart_rounded,
-                      size: _currentPage == 0 ? 32 : 28,
-                      color: _currentPage == 0
-                          ? Theme.of(context).accentColor
-                          : Colors.grey,
-                    ),
+        child: BottomAppBar(
+          color: Theme.of(context).primaryColor,
+          elevation: 40,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 2.0,
+              vertical: 6,
+            ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                IconButton(
+                  onPressed: () {
+                    _pageController.animateToPage(
+                      0,
+                      duration: Duration(milliseconds: 500),
+                      curve: Curves.linear,
+                    );
+                  },
+                  icon: Icon(
+                    Icons.bar_chart_rounded,
+                    size: _currentPage == 0 ? 32 : 28,
+                    color: _currentPage == 0
+                        ? Theme.of(context).accentColor
+                        : Colors.grey,
                   ),
-                  IconButton(
-                    onPressed: () {
-                      _pageController.animateToPage(
-                        1,
-                        duration: Duration(milliseconds: 500),
-                        curve: Curves.linear,
-                      );
-                    },
-                    icon: Icon(
-                      Icons.data_usage,
-                      size: _currentPage == 1 ? 32 : 28,
-                      color: _currentPage == 1
-                          ? Theme.of(context).accentColor
-                          : Colors.grey,
-                    ),
+                ),
+                IconButton(
+                  onPressed: () {
+                    _pageController.animateToPage(
+                      1,
+                      duration: Duration(milliseconds: 500),
+                      curve: Curves.linear,
+                    );
+                  },
+                  icon: Icon(
+                    Icons.data_usage,
+                    size: _currentPage == 1 ? 32 : 28,
+                    color: _currentPage == 1
+                        ? Theme.of(context).accentColor
+                        : Colors.grey,
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),

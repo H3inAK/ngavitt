@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:covid19app/widgets/drawers/app_drawer.dart';
 import 'package:flutter/material.dart';
 
 class AboutAuthor extends StatefulWidget {
@@ -30,82 +32,81 @@ class _AboutAuthorState extends State<AboutAuthor>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("About Author"),
-      ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Center(
-            child: ShakeTransition(
-              curve: Curves.elasticOut,
-              offset: -400,
-              duration: const Duration(milliseconds: 800),
-              axis: Axis.vertical,
-              child: Image.asset(
-                'assets/images/me.jpg',
-                width: 100,
-                height: 100,
-                fit: BoxFit.cover,
-              ),
-            ),
-          ),
-          SizedBox(height: 30),
-          ShakeTransition(
-            curve: Curves.bounceOut,
-            axis: Axis.horizontal,
-            duration: const Duration(milliseconds: 800),
-            offset: 70,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                // Text(
-                //   "Awesome",
-                //   style: TextStyle(fontSize: 22),
-                // ),
-                Text(
-                  "Hein Arkar",
-                  style: TextStyle(
-                    color: Colors.teal,
-                    fontSize: 22,
+    return ThemeSwitchingArea(
+      child: Scaffold(
+        drawer: AppDrawer(),
+        appBar: AppBar(
+          title: Text("About Author"),
+        ),
+        body: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Center(
+              child: ShakeTransition(
+                curve: Curves.elasticOut,
+                offset: -400,
+                duration: const Duration(milliseconds: 800),
+                axis: Axis.vertical,
+                child: CircleAvatar(
+                  radius: 100,
+                  backgroundImage: AssetImage(
+                    'assets/images/me.jpg',
                   ),
-                )
-              ],
-            ),
-          ),
-          SizedBox(height: 30),
-          ShakeTransition(
-            curve: Curves.bounceOut,
-            axis: Axis.horizontal,
-            duration: const Duration(milliseconds: 1200),
-            offset: 100,
-            child: Padding(
-              padding: EdgeInsets.all(20),
-              child: Text(
-                '''My name is Hein Arkar\n
-                I am junior flutter software developer\n
-                I am from Myanmar(Burma)\n
-                This is version 2.0.0+4 and I'm having my best focus on it to develop\n
-                you can reach me via below github link''',
-                style: Theme.of(context).textTheme.bodyText1,
-                textAlign: TextAlign.center,
+                ),
               ),
             ),
-          ),
-          SizedBox(height: 30),
-          ShakeTransition.repeatTransition(
-            animationController: _animationController,
-            child: SelectableText(
-              "https://github.com/Hein-Arkar",
-              style: TextStyle(
-                color: Colors.blue,
-                fontSize: 18,
+            SizedBox(height: 30),
+            ShakeTransition(
+              curve: Curves.bounceOut,
+              axis: Axis.horizontal,
+              duration: const Duration(milliseconds: 800),
+              offset: 70,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Hein Arkar",
+                    style: TextStyle(
+                      color: Colors.teal,
+                      fontSize: 22,
+                    ),
+                  )
+                ],
               ),
             ),
-          ),
-        ],
+            SizedBox(height: 30),
+            ShakeTransition(
+              curve: Curves.bounceOut,
+              axis: Axis.horizontal,
+              duration: const Duration(milliseconds: 1200),
+              offset: 100,
+              child: Padding(
+                padding: EdgeInsets.all(20),
+                child: Text(
+                  '''My name is Hein Arkar\n
+                  I am junior flutter software developer\n
+                  I am from Myanmar(Burma)\n
+                  This is version 2.0.0+4 and I'm having my best focus on it to develop\n
+                  you can reach me via below github link''',
+                  style: Theme.of(context).textTheme.bodyText1,
+                  textAlign: TextAlign.left,
+                ),
+              ),
+            ),
+            SizedBox(height: 30),
+            ShakeTransition.repeatTransition(
+              animationController: _animationController,
+              child: SelectableText(
+                "https://github.com/Hein-Arkar",
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 18,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

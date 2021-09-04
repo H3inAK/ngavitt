@@ -86,8 +86,8 @@ class _AppDrawerState extends State<AppDrawer>
                     ),
                   ),
                   buildDrawerItem(
-                    Icons.insert_chart_rounded,
-                    "Global PieChart",
+                    Icons.person_rounded,
+                    "About Author",
                     () => Navigator.of(context).pushReplacement(
                       CustomRoute(
                         builder: (ctx) => AboutAuthor(),
