@@ -3,6 +3,8 @@
 #### Public API - https://corona.lmao.ninja/
 #### UI inspired from [The Flutter Way](https://youtu.be/axWBN1aotQk)
 
+#### a href="https://ngavitt.netlify.app/" style="text-decoration: none; color: blue;">DEMO WEB</a>
+
 #### Used Packages
 <ul>
 	<li><a href="https://pub.dev/packages/provider" style="text-decoration: none; color: blue;">provider</a></li>
