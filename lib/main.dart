@@ -1,4 +1,5 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:covid19app/helpers/custom_routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -72,9 +73,8 @@ class MyApp extends StatelessWidget {
                     settings: settings,
                   );
                 case SearchScreen.routeName:
-                  return CupertinoPageRoute(
-                    builder: (ctx) => SearchScreen(),
-                    settings: settings,
+                  return FadedPageRoute(
+                    child: SearchScreen(),
                   );
               }
             },

@@ -3,6 +3,7 @@ import 'package:covid19app/helpers/custom_routes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../screens/search_screen.dart';
 import '../screens/all_countries.dart';
@@ -29,11 +30,29 @@ class HomeScreen extends StatelessWidget {
           );
         },
       ),
-      title: Text(
-        "NGAVITT",
-        style: TextStyle(
-          color: Theme.of(context).accentColor,
-        ),
+      title: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          SvgPicture.asset(
+            'assets/icons/virus.svg',
+            color: Theme.of(context).accentColor,
+            width: 26,
+          ),
+          SizedBox(width: 6),
+          Text(
+            "NGAVITT",
+            style: GoogleFonts.aclonica(
+              color: Theme.of(context).accentColor,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(width: 6),
+          SvgPicture.asset(
+            'assets/icons/virus.svg',
+            color: Theme.of(context).accentColor,
+            width: 26,
+          ),
+        ],
       ),
       centerTitle: true,
       actions: [

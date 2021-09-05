@@ -52,34 +52,6 @@ class _CountriesListState extends State<CountriesList> {
             //   });
             // });
 
-            return CustomScrollView(
-              physics: BouncingScrollPhysics(),
-              slivers: [
-                SliverPadding(
-                  padding: EdgeInsets.symmetric(
-                    vertical: 6,
-                    horizontal: 4,
-                  ),
-                  sliver: SliverAnimatedList(
-                    key: _sliverListKey,
-                    itemBuilder: (ctx, i, animation) {
-                      return SizeTransition(
-                        key: UniqueKey(),
-                        sizeFactor: animation,
-                        child: CountryItem(
-                          key: UniqueKey(),
-                          countryStatus: countriesData.countries[i],
-                          counter: i,
-                          isAninmate: true,
-                        ),
-                      );
-                    },
-                    initialItemCount: countriesData.countries.length,
-                  ),
-                ),
-              ],
-            );
-
             // return CustomScrollView(
             //   physics: BouncingScrollPhysics(),
             //   slivers: [
@@ -107,20 +79,42 @@ class _CountriesListState extends State<CountriesList> {
             //   ],
             // );
 
-            // return ListView.builder(
-            //   physics: BouncingScrollPhysics(),
-            //   padding: EdgeInsets.symmetric(
-            //     vertical: 6,
-            //     horizontal: 4,
-            //   ),
-            //   itemCount: countriesData.countries.length,
-            //   itemBuilder: (ctx, i) {
-            //     return CountryItem(
-            //       countriesData.countries[i],
-            //       i,
-            //     );
-            //   },
-            // );
+            return SafeArea(
+              top: false,
+              bottom: false,
+              child: Builder(builder: (context) {
+                return CustomScrollView(
+                  physics: BouncingScrollPhysics(),
+                  slivers: [
+                    SliverOverlapInjector(
+                        handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
+                            context)),
+                    SliverPadding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 6,
+                        horizontal: 4,
+                      ),
+                      sliver: SliverAnimatedList(
+                        key: _sliverListKey,
+                        itemBuilder: (ctx, i, animation) {
+                          return SizeTransition(
+                            key: UniqueKey(),
+                            sizeFactor: animation,
+                            child: CountryItem(
+                              key: UniqueKey(),
+                              countryStatus: countriesData.countries[i],
+                              counter: i,
+                              isAninmate: true,
+                            ),
+                          );
+                        },
+                        initialItemCount: countriesData.countries.length,
+                      ),
+                    ),
+                  ],
+                );
+              }),
+            );
           },
         ),
       ),

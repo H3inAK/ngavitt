@@ -18,20 +18,30 @@ class Continents extends StatelessWidget {
             vertical: 20,
             horizontal: 15,
           ),
-          child: Card(
-            elevation: 14,
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Container(
-                decoration: BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('assets/images/map.png'),
-                    fit: BoxFit.cover,
+          child: TweenAnimationBuilder<double>(
+            duration: const Duration(milliseconds: 750),
+            tween: Tween(begin: 1.0, end: 0.0),
+            child: Card(
+              elevation: 14,
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(8),
+                child: Container(
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: AssetImage('assets/images/map.png'),
+                      fit: BoxFit.cover,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
                   ),
-                  borderRadius: BorderRadius.circular(8),
                 ),
               ),
             ),
+            builder: (context, value, child) {
+              return Transform.translate(
+                offset: Offset(0.0, value * -100),
+                child: child,
+              );
+            },
           ),
         ),
         Expanded(

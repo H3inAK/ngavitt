@@ -1,11 +1,15 @@
-import 'package:covid19app/constants/data.dart';
-import 'package:covid19app/models/counrty_status.dart';
-import 'package:covid19app/pages/pie_chart_country.dart';
-import 'package:covid19app/providers/country_status_provider.dart';
-import 'package:covid19app/widgets/cards/info_card.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+
+import '../constants/data.dart';
+import '../models/counrty_status.dart';
+import '../pages/pie_chart_country.dart';
+import '../providers/country_status_provider.dart';
+import '../screens/search_screen.dart';
+import '../widgets/cards/info_card.dart';
 
 class CountryCovidStatusDetails extends StatefulWidget {
   final CountryStatus countryStatus;
@@ -240,6 +244,25 @@ class _CountryCovidStatusDetailsState extends State<CountryCovidStatusDetails> {
           ),
         ),
       ),
+      actions: [
+        InkWell(
+          onTap: () =>
+              Navigator.of(context).popAndPushNamed(SearchScreen.routeName),
+          child: Container(
+            margin: EdgeInsets.only(right: 10),
+            height: 46,
+            width: 46,
+            decoration: BoxDecoration(
+              color: Theme.of(context).primaryColor.withOpacity(0.7),
+              shape: BoxShape.circle,
+            ),
+            child: Icon(
+              FontAwesome.search,
+              color: Theme.of(context).accentColor,
+            ),
+          ),
+        ),
+      ],
       stretch: true,
       expandedHeight: 280,
       flexibleSpace: FlexibleSpaceBar(
@@ -247,12 +270,20 @@ class _CountryCovidStatusDetailsState extends State<CountryCovidStatusDetails> {
           StretchMode.zoomBackground,
         ],
         centerTitle: true,
-        title: Text(
-          "  ${widget.countryStatus.countryName}(${widget.countryStatus.countryCode})  ",
-          softWrap: true,
-          overflow: TextOverflow.ellipsis,
-          style: TextStyle(
-            backgroundColor: Colors.black.withOpacity(0.5),
+        title: Container(
+          padding: const EdgeInsets.symmetric(
+            vertical: 6,
+            horizontal: 10,
+          ),
+          decoration: BoxDecoration(
+            color: Colors.black.withOpacity(0.5),
+            borderRadius: BorderRadius.circular(6),
+          ),
+          child: Text(
+            "  ${widget.countryStatus.countryName}(${widget.countryStatus.countryCode})  ",
+            softWrap: true,
+            overflow: TextOverflow.ellipsis,
+            style: GoogleFonts.lato(),
           ),
         ),
         background: SizedBox.expand(

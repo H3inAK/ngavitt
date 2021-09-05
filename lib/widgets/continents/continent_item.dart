@@ -1,3 +1,4 @@
+import 'package:covid19app/helpers/custom_routes.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/constants.dart';
@@ -12,48 +13,63 @@ class ContinentItem extends StatelessWidget {
 
   void _selectContinent(BuildContext context) {
     Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (ctx) => ContinentCountriesList(title),
+      PopupScalePageRoute(
+        child: ContinentCountriesList(title),
+        duration: const Duration(milliseconds: 360),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      splashColor: kPrimaryColor,
-      borderRadius: BorderRadius.circular(6),
-      onTap: () => _selectContinent(context),
-      child: Container(
-        padding: EdgeInsets.all(20),
-        child: Center(
-          child: Text(
-            title,
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
-              color: Colors.black54,
+    return TweenAnimationBuilder<double>(
+      duration: const Duration(milliseconds: 600),
+      tween: Tween(begin: 1.0, end: 0.0),
+      child: InkWell(
+        splashColor: kPrimaryColor,
+        borderRadius: BorderRadius.circular(6),
+        onTap: () => _selectContinent(context),
+        child: Container(
+          padding: EdgeInsets.all(20),
+          child: Center(
+            child: Text(
+              title,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+                color: Colors.black54,
+              ),
             ),
           ),
-        ),
-        decoration: BoxDecoration(
-          image: image == null
-              ? null
-              : DecorationImage(
-                  image: AssetImage("assets/images" + image.toString()),
-                ),
-          gradient: LinearGradient(
-            colors: [
-              color.withOpacity(0.6),
-              color,
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+          decoration: BoxDecoration(
+            image: image == null
+                ? null
+                : DecorationImage(
+                    image: AssetImage("assets/images" + image.toString()),
+                  ),
+            gradient: LinearGradient(
+              colors: [
+                color.withOpacity(0.6),
+                color,
+              ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            borderRadius: BorderRadius.circular(6),
           ),
-          borderRadius: BorderRadius.circular(6),
         ),
       ),
+      builder: (context, value, child) {
+        return Transform.translate(
+          offset: Offset(0.0, value * 40),
+          child: AnimatedOpacity(
+            duration: const Duration(milliseconds: 500),
+            opacity: (1 - value).clamp(0.4, 1.0),
+            child: child,
+          ),
+        );
+      },
     );
   }
 }

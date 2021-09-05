@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../constants/constants.dart';
 import 'line_chart.dart';
@@ -78,9 +79,9 @@ class InfoCard extends StatelessWidget {
                             maxLines: 1,
                             overflow: TextOverflow.fade,
                             softWrap: true,
-                            style: TextStyle(
+                            style: GoogleFonts.oswald(
                               color: titleColor,
-                              fontWeight: FontWeight.bold,
+                              fontWeight: FontWeight.w500,
                               fontSize: 20,
                             ),
                           )

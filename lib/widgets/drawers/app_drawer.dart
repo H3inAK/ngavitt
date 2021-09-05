@@ -56,9 +56,6 @@ class _AppDrawerState extends State<AppDrawer>
                     Icons.home_filled,
                     "See All Status",
                     () => Navigator.of(context).pushReplacement(
-                      // FadedPageRoute(
-                      //   child: HomeScreen(),
-                      // ),
                       CustomRoute(
                         builder: (ctx) => HomeScreen(),
                       ),
@@ -74,12 +71,9 @@ class _AppDrawerState extends State<AppDrawer>
                     ),
                   ),
                   buildDrawerItem(
-                    Icons.insert_chart_rounded,
+                    Icons.bar_chart,
                     "Global PieChart",
                     () => Navigator.of(context).pushReplacement(
-                      // PopupScalePageRoute(
-                      //   child: PieChartPage(),
-                      // ),
                       CustomRoute(
                         builder: (ctx) => PieChartPage(),
                       ),
@@ -113,8 +107,6 @@ class _AppDrawerState extends State<AppDrawer>
       right: kIsWeb ? 20 : 10,
       child: ThemeSwitcher(
         builder: (context) {
-          /// animation doesn't work
-          /// fit it later on
           return GestureDetector(
             onTap: () async {
               setState(() {

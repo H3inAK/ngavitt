@@ -31,7 +31,7 @@ class CountryItem extends StatelessWidget {
       builder: (context, value, child) {
         return isAninmate
             ? Transform.scale(
-                scale: value.clamp(0.4, 1.0),
+                scale: value.clamp(0.7, 1.0),
                 child: child,
               )
             : child;
@@ -78,7 +78,7 @@ class CountryItem extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(6.0),
                 child: FadeInImage(
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                   placeholder: AssetImage('assets/images/map.png'),
                   image: NetworkImage(
                     countryStatus.countryFlag,

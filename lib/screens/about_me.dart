@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:covid19app/widgets/drawers/app_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 class AboutAuthor extends StatefulWidget {
   const AboutAuthor({Key key}) : super(key: key);
@@ -36,7 +38,28 @@ class _AboutAuthorState extends State<AboutAuthor>
       child: Scaffold(
         drawer: AppDrawer(),
         appBar: AppBar(
-          title: Text("About Author"),
+          leading: Builder(
+            builder: (ctx) {
+              return IconButton(
+                icon: SvgPicture.asset(
+                  "assets/icons/menu.svg",
+                  width: 20,
+                  color: Theme.of(context).accentColor,
+                ),
+                onPressed: () {
+                  Scaffold.of(ctx).openDrawer();
+                },
+              );
+            },
+          ),
+          title: Text(
+            "About Author",
+            style: TextStyle(
+              color: Theme.of(context).accentColor,
+            ),
+          ),
+          elevation: 0.0,
+          centerTitle: true,
         ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -49,7 +72,7 @@ class _AboutAuthorState extends State<AboutAuthor>
                 duration: const Duration(milliseconds: 800),
                 axis: Axis.vertical,
                 child: CircleAvatar(
-                  radius: 100,
+                  radius: 60,
                   backgroundImage: AssetImage(
                     'assets/images/me.jpg',
                   ),
@@ -80,17 +103,61 @@ class _AboutAuthorState extends State<AboutAuthor>
               curve: Curves.bounceOut,
               axis: Axis.horizontal,
               duration: const Duration(milliseconds: 1200),
-              offset: 100,
-              child: Padding(
-                padding: EdgeInsets.all(20),
-                child: Text(
-                  '''My name is Hein Arkar\n
-                  I am junior flutter software developer\n
-                  I am from Myanmar(Burma)\n
-                  This is version 2.0.0+4 and I'm having my best focus on it to develop\n
-                  you can reach me via below github link''',
-                  style: Theme.of(context).textTheme.bodyText1,
-                  textAlign: TextAlign.left,
+              offset: 80,
+              child: Container(
+                width: 200,
+                child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.blueAccent,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  onPressed: () {},
+                  icon: Icon(AntDesign.facebook_square),
+                  label: Text("Facebook"),
+                ),
+              ),
+            ),
+            SizedBox(height: 10),
+            ShakeTransition(
+              curve: Curves.bounceOut,
+              axis: Axis.horizontal,
+              duration: const Duration(milliseconds: 1200),
+              offset: 80,
+              child: Container(
+                width: 200,
+                child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.blue,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  onPressed: () {},
+                  icon: Icon(AntDesign.twitter),
+                  label: Text("Twitter"),
+                ),
+              ),
+            ),
+            SizedBox(height: 10),
+            ShakeTransition(
+              curve: Curves.bounceOut,
+              axis: Axis.horizontal,
+              duration: const Duration(milliseconds: 1200),
+              offset: 80,
+              child: Container(
+                width: 200,
+                child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.black87,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                  onPressed: () {},
+                  icon: Icon(AntDesign.github),
+                  label: Text("Github"),
                 ),
               ),
             ),
@@ -98,7 +165,7 @@ class _AboutAuthorState extends State<AboutAuthor>
             ShakeTransition.repeatTransition(
               animationController: _animationController,
               child: SelectableText(
-                "https://github.com/Hein-Arkar",
+                "https://ngavitt.netlify.app",
                 style: TextStyle(
                   color: Colors.blue,
                   fontSize: 18,
