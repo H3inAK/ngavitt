@@ -15,9 +15,11 @@ class _CountriesListState extends State<CountriesList> {
   GlobalKey<SliverAnimatedListState> _sliverListKey =
       GlobalKey<SliverAnimatedListState>();
   List<CountryStatus> _countries = <CountryStatus>[];
+  ScrollController _scrollController;
 
   @override
   void initState() {
+    _scrollController = ScrollController();
     super.initState();
   }
 
@@ -83,35 +85,40 @@ class _CountriesListState extends State<CountriesList> {
               top: false,
               bottom: false,
               child: Builder(builder: (context) {
-                return CustomScrollView(
-                  physics: BouncingScrollPhysics(),
-                  slivers: [
-                    SliverOverlapInjector(
-                        handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
-                            context)),
-                    SliverPadding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: 6,
-                        horizontal: 4,
-                      ),
-                      sliver: SliverAnimatedList(
-                        key: _sliverListKey,
-                        itemBuilder: (ctx, i, animation) {
-                          return SizeTransition(
-                            key: UniqueKey(),
-                            sizeFactor: animation,
-                            child: CountryItem(
+                return Scrollbar(
+                  controller: _scrollController,
+                  child: CustomScrollView(
+                    controller: _scrollController,
+                    physics: BouncingScrollPhysics(),
+                    slivers: [
+                      SliverOverlapInjector(
+                          handle:
+                              NestedScrollView.sliverOverlapAbsorberHandleFor(
+                                  context)),
+                      SliverPadding(
+                        padding: EdgeInsets.symmetric(
+                          vertical: 6,
+                          horizontal: 4,
+                        ),
+                        sliver: SliverAnimatedList(
+                          key: _sliverListKey,
+                          itemBuilder: (ctx, i, animation) {
+                            return SizeTransition(
                               key: UniqueKey(),
-                              countryStatus: countriesData.countries[i],
-                              counter: i,
-                              isAninmate: true,
-                            ),
-                          );
-                        },
-                        initialItemCount: countriesData.countries.length,
+                              sizeFactor: animation,
+                              child: CountryItem(
+                                key: UniqueKey(),
+                                countryStatus: countriesData.countries[i],
+                                counter: i,
+                                isAninmate: true,
+                              ),
+                            );
+                          },
+                          initialItemCount: countriesData.countries.length,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 );
               }),
             );

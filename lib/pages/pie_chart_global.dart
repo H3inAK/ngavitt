@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/semantics.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../constants/data.dart';
@@ -124,8 +125,9 @@ class _PieChartPageState extends State<PieChartPage> {
           ),
           title: Text(
             "GLOBAL CHART STATUS",
-            style: TextStyle(
+            style: GoogleFonts.aclonica(
               color: Theme.of(context).accentColor,
+              fontWeight: FontWeight.bold,
             ),
           ),
           centerTitle: true,

@@ -1,6 +1,6 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
-import 'package:covid19app/helpers/custom_routes.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -8,7 +8,9 @@ import 'package:provider/provider.dart';
 import './providers/global_status_provider.dart';
 import './providers/counrties_provider.dart';
 import './providers/country_status_provider.dart';
-import '../themes/theme_service.dart';
+import './helpers/quick_actions.dart';
+import './themes/theme_service.dart';
+import './helpers/custom_routes.dart';
 import './screens/splash_screen.dart';
 import './screens/search_screen.dart';
 import './screens/all_countries.dart';
@@ -22,20 +24,21 @@ void main() async {
     ),
   );
   WidgetsFlutterBinding.ensureInitialized();
+  if (!kIsWeb) AppBannerActions.init();
   final themeServise = await ThemeService.instance;
   final initTheme = themeServise.initial;
-  runApp(MyApp(theme: initTheme));
+  runApp(MyApp(initTheme: initTheme));
 }
 
 class MyApp extends StatelessWidget {
-  final ThemeData theme;
+  final ThemeData initTheme;
 
-  MyApp({this.theme});
+  const MyApp({this.initTheme});
 
   @override
   Widget build(BuildContext context) {
     return ThemeProvider(
-      initTheme: theme,
+      initTheme: initTheme,
       child: Builder(
         builder: (BuildContext context) => MultiProvider(
           providers: [
@@ -59,6 +62,8 @@ class MyApp extends StatelessWidget {
               AllCountriesScreen.routeName: (ctx) => AllCountriesScreen(),
               CountryDetailsScreen.routeName: (ctx) => CountryDetailsScreen(),
             },
+            // it doesn't effect anything but
+            // will be reslove later
             // ignore: missing_return
             onGenerateRoute: (RouteSettings settings) {
               switch (settings.name) {

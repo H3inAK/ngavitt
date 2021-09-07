@@ -1,10 +1,14 @@
 import 'dart:async';
 
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
-import 'package:covid19app/widgets/drawers/app_drawer.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
+
+import '../widgets/drawers/app_drawer.dart';
 
 class AboutAuthor extends StatefulWidget {
   const AboutAuthor({Key key}) : super(key: key);
@@ -32,6 +36,10 @@ class _AboutAuthorState extends State<AboutAuthor>
     super.dispose();
   }
 
+  Future<void> _launchURL(String url) async {
+    await canLaunch(url) ? launch(url) : throw Exception("can't launch $url");
+  }
+
   @override
   Widget build(BuildContext context) {
     return ThemeSwitchingArea(
@@ -53,9 +61,10 @@ class _AboutAuthorState extends State<AboutAuthor>
             },
           ),
           title: Text(
-            "About Author",
-            style: TextStyle(
+            "ABOUT AUTHOR",
+            style: GoogleFonts.aclonica(
               color: Theme.of(context).accentColor,
+              fontWeight: FontWeight.bold,
             ),
           ),
           elevation: 0.0,
@@ -68,7 +77,7 @@ class _AboutAuthorState extends State<AboutAuthor>
             Center(
               child: ShakeTransition(
                 curve: Curves.elasticOut,
-                offset: -400,
+                offset: -800,
                 duration: const Duration(milliseconds: 800),
                 axis: Axis.vertical,
                 child: CircleAvatar(
@@ -91,7 +100,7 @@ class _AboutAuthorState extends State<AboutAuthor>
                   Text(
                     "Hein Arkar",
                     style: TextStyle(
-                      color: Colors.teal,
+                      color: Theme.of(context).accentColor,
                       fontSize: 22,
                     ),
                   )
@@ -110,12 +119,14 @@ class _AboutAuthorState extends State<AboutAuthor>
                   style: ElevatedButton.styleFrom(
                     primary: Colors.blueAccent,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(6),
                     ),
                   ),
-                  onPressed: () {},
-                  icon: Icon(AntDesign.facebook_square),
-                  label: Text("Facebook"),
+                  onPressed: () {
+                    _launchURL('https://t.me/csthantzinoo');
+                  },
+                  icon: Icon(FontAwesome.telegram),
+                  label: Text("Telegram"),
                 ),
               ),
             ),
@@ -131,11 +142,13 @@ class _AboutAuthorState extends State<AboutAuthor>
                   style: ElevatedButton.styleFrom(
                     primary: Colors.blue,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(6),
                     ),
                   ),
-                  onPressed: () {},
-                  icon: Icon(AntDesign.twitter),
+                  onPressed: () {
+                    _launchURL('https://www.twitter.com/HeinArkar8');
+                  },
+                  icon: Icon(FontAwesome.twitter),
                   label: Text("Twitter"),
                 ),
               ),
@@ -152,26 +165,54 @@ class _AboutAuthorState extends State<AboutAuthor>
                   style: ElevatedButton.styleFrom(
                     primary: Colors.black87,
                     shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+                      borderRadius: BorderRadius.circular(6),
                     ),
                   ),
-                  onPressed: () {},
-                  icon: Icon(AntDesign.github),
+                  onPressed: () {
+                    _launchURL('https://github.com/H3inAK');
+                  },
+                  icon: Icon(FontAwesome.github),
                   label: Text("Github"),
                 ),
               ),
             ),
             SizedBox(height: 30),
-            ShakeTransition.repeatTransition(
-              animationController: _animationController,
-              child: SelectableText(
-                "https://ngavitt.netlify.app",
-                style: TextStyle(
-                  color: Colors.blue,
-                  fontSize: 18,
-                ),
-              ),
-            ),
+            kIsWeb
+                ? ShakeTransition(
+                    curve: Curves.fastLinearToSlowEaseIn,
+                    axis: Axis.horizontal,
+                    duration: const Duration(milliseconds: 2000),
+                    offset: 80,
+                    child: TextButton(
+                      onPressed: () {
+                        print("it works");
+                        _launchURL('https://ngavitt.netlify.app');
+                      },
+                      child: SelectableText(
+                        "https://ngavitt.netlify.app",
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  )
+                : ShakeTransition.repeatTransition(
+                    animationController: _animationController,
+                    child: TextButton(
+                      onPressed: () {
+                        print("it works");
+                        _launchURL('https://ngavitt.netlify.app');
+                      },
+                      child: SelectableText(
+                        "https://ngavitt.netlify.app",
+                        style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 18,
+                        ),
+                      ),
+                    ),
+                  ),
           ],
         ),
       ),

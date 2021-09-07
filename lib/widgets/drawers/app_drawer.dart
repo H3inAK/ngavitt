@@ -10,7 +10,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../themes/theme_service.dart';
 import '../../helpers/custom_routes.dart';
 import '../../screens/home_screen.dart';
-import '../../screens/preventation_screen.dart';
+import '../../screens/prevention_screen.dart';
 import '../../pages/pie_chart_global.dart';
 
 class AppDrawer extends StatefulWidget {
@@ -66,7 +66,7 @@ class _AppDrawerState extends State<AppDrawer>
                     "Preventions",
                     () => Navigator.of(context).pushReplacement(
                       CustomRoute(
-                        builder: (ctx) => PreventationScreen(),
+                        builder: (ctx) => PreventionScreen(),
                       ),
                     ),
                   ),
