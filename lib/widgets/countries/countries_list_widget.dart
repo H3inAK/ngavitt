@@ -1,3 +1,4 @@
+// ignore: unused_import
 import 'package:covid19app/models/counrty_status.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -14,12 +15,10 @@ class CountriesList extends StatefulWidget {
 class _CountriesListState extends State<CountriesList> {
   GlobalKey<SliverAnimatedListState> _sliverListKey =
       GlobalKey<SliverAnimatedListState>();
-  List<CountryStatus> _countries = <CountryStatus>[];
-  ScrollController _scrollController;
+  // List<CountryStatus> _countries = <CountryStatus>[];
 
   @override
   void initState() {
-    _scrollController = ScrollController();
     super.initState();
   }
 
@@ -85,40 +84,35 @@ class _CountriesListState extends State<CountriesList> {
               top: false,
               bottom: false,
               child: Builder(builder: (context) {
-                return Scrollbar(
-                  controller: _scrollController,
-                  child: CustomScrollView(
-                    controller: _scrollController,
-                    physics: BouncingScrollPhysics(),
-                    slivers: [
-                      SliverOverlapInjector(
-                          handle:
-                              NestedScrollView.sliverOverlapAbsorberHandleFor(
-                                  context)),
-                      SliverPadding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: 6,
-                          horizontal: 4,
-                        ),
-                        sliver: SliverAnimatedList(
-                          key: _sliverListKey,
-                          itemBuilder: (ctx, i, animation) {
-                            return SizeTransition(
-                              key: UniqueKey(),
-                              sizeFactor: animation,
-                              child: CountryItem(
-                                key: UniqueKey(),
-                                countryStatus: countriesData.countries[i],
-                                counter: i,
-                                isAninmate: true,
-                              ),
-                            );
-                          },
-                          initialItemCount: countriesData.countries.length,
-                        ),
+                return CustomScrollView(
+                  physics: BouncingScrollPhysics(),
+                  slivers: [
+                    SliverOverlapInjector(
+                        handle: NestedScrollView.sliverOverlapAbsorberHandleFor(
+                            context)),
+                    SliverPadding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 6,
+                        horizontal: 4,
                       ),
-                    ],
-                  ),
+                      sliver: SliverAnimatedList(
+                        key: _sliverListKey,
+                        itemBuilder: (ctx, i, animation) {
+                          return SizeTransition(
+                            key: UniqueKey(),
+                            sizeFactor: animation,
+                            child: CountryItem(
+                              key: UniqueKey(),
+                              countryStatus: countriesData.countries[i],
+                              counter: i,
+                              isAninmate: true,
+                            ),
+                          );
+                        },
+                        initialItemCount: countriesData.countries.length,
+                      ),
+                    ),
+                  ],
                 );
               }),
             );

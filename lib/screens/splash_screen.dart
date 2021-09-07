@@ -25,6 +25,32 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     Future.delayed(Duration.zero).then(
       (_) {
+        if (!kIsWeb)
+          AppBannerActions.quickActions.initialize((type) {
+            if (type == 'global') {
+              Navigator.of(context).push(
+                SimplePageRoute(
+                  builder: (ctx) => PieChartPage(),
+                  duration: const Duration(milliseconds: 100),
+                ),
+              );
+            } else if (type == 'countries') {
+              Navigator.of(context).push(
+                SimplePageRoute(
+                  builder: (ctx) => AllCountriesScreen(),
+                  duration: const Duration(milliseconds: 100),
+                ),
+              );
+            } else if (type == 'search') {
+              Navigator.of(context).push(
+                SimplePageRoute(
+                  builder: (ctx) => SearchScreen(),
+                  duration: const Duration(milliseconds: 100),
+                ),
+              );
+            }
+          });
+
         Provider.of<CountriesProvider>(context, listen: false)
             .fetchAndSetCountriesData()
             .then(
@@ -65,32 +91,6 @@ class _SplashScreenState extends State<SplashScreen> {
             );
           },
         );
-
-        if (!kIsWeb)
-          AppBannerActions.quickActions.initialize((type) {
-            if (type == 'global') {
-              Navigator.of(context).push(
-                SimplePageRoute(
-                  builder: (ctx) => PieChartPage(),
-                  duration: const Duration(milliseconds: 100),
-                ),
-              );
-            } else if (type == 'countries') {
-              Navigator.of(context).push(
-                SimplePageRoute(
-                  builder: (ctx) => AllCountriesScreen(),
-                  duration: const Duration(milliseconds: 100),
-                ),
-              );
-            } else if (type == 'search') {
-              Navigator.of(context).push(
-                SimplePageRoute(
-                  builder: (ctx) => SearchScreen(),
-                  duration: const Duration(milliseconds: 100),
-                ),
-              );
-            }
-          });
       },
     );
     super.initState();
