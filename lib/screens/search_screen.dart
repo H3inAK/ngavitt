@@ -1,5 +1,7 @@
+import 'package:covid19app/providers/language_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
 
 import '../models/counrty_status.dart';
@@ -65,6 +67,9 @@ class _SearchScreenState extends State<SearchScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final appLang =
+        Provider.of<LanguageProvider>(context, listen: false).appLanguage;
+
     return Scaffold(
       appBar: AppBar(
         elevation: 0.2,
@@ -87,7 +92,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 prefixIcon: const Icon(
                   Icons.search,
                 ),
-                hintText: "search country by name .....",
+                hintText: appLang['searchcountrybyname'],
                 fillColor: Theme.of(context).scaffoldBackgroundColor,
                 filled: true,
                 border: OutlineInputBorder(
@@ -112,7 +117,19 @@ class _SearchScreenState extends State<SearchScreen> {
           ? Container()
           : _countries.isEmpty
               ? Center(
-                  child: Text("No Countries Founded!"),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        AntDesign.flag,
+                        color: Theme.of(context).accentColor,
+                        size: 80,
+                      ),
+                      SizedBox(height: 40),
+                      Text(appLang['nocountriesfounded']),
+                    ],
+                  ),
                 )
               : ListView.builder(
                   padding: EdgeInsets.only(

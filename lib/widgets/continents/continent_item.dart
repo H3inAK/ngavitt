@@ -1,7 +1,7 @@
-import 'package:covid19app/helpers/custom_routes.dart';
 import 'package:flutter/material.dart';
 
 import '../../constants/constants.dart';
+import '../../helpers/custom_routes.dart';
 import '../../screens/continent_countries_list.dart';
 
 class ContinentItem extends StatelessWidget {
@@ -32,13 +32,15 @@ class ContinentItem extends StatelessWidget {
         child: Container(
           padding: EdgeInsets.all(20),
           child: Center(
-            child: Text(
-              title,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                color: Colors.black54,
+            child: FittedBox(
+              child: Text(
+                title,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black54,
+                ),
               ),
             ),
           ),

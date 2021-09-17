@@ -1,4 +1,5 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:covid19app/providers/language_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/semantics.dart';
@@ -25,24 +26,6 @@ class _PieChartPageState extends State<PieChartPage> {
   void initState() {
     globalStatus =
         Provider.of<GlobalStatusProvider>(context, listen: false).globalStatus;
-
-    data = [
-      ChartData(
-          name: 'Active',
-          percent:
-              (globalStatus.activeCases / globalStatus.totalConfirmed) * 100,
-          color: Colors.orange[400]),
-      ChartData(
-          name: 'Recovered',
-          percent:
-              (globalStatus.totalRecovered / globalStatus.totalConfirmed) * 100,
-          color: Colors.green[400]),
-      ChartData(
-          name: 'Deaths',
-          percent:
-              (globalStatus.totalDeaths / globalStatus.totalConfirmed) * 100,
-          color: Colors.red[400]),
-    ];
 
     super.initState();
   }
@@ -105,6 +88,26 @@ class _PieChartPageState extends State<PieChartPage> {
 
   @override
   Widget build(BuildContext context) {
+    final appLang =
+        Provider.of<LanguageProvider>(context, listen: false).appLanguage;
+    data = [
+      ChartData(
+          name: appLang['globalPieChart']['active'],
+          percent:
+              (globalStatus.activeCases / globalStatus.totalConfirmed) * 100,
+          color: Colors.orange[400]),
+      ChartData(
+          name: appLang['globalPieChart']['recovered'],
+          percent:
+              (globalStatus.totalRecovered / globalStatus.totalConfirmed) * 100,
+          color: Colors.green[400]),
+      ChartData(
+          name: appLang['globalPieChart']['comfirmed'],
+          percent:
+              (globalStatus.totalDeaths / globalStatus.totalConfirmed) * 100,
+          color: Colors.red[400]),
+    ];
+
     return ThemeSwitchingArea(
       child: Scaffold(
         drawer: AppDrawer(),
@@ -124,7 +127,7 @@ class _PieChartPageState extends State<PieChartPage> {
             },
           ),
           title: Text(
-            "GLOBAL CHART STATUS",
+            appLang['globalpiechart'],
             style: GoogleFonts.aclonica(
               color: Theme.of(context).accentColor,
               fontWeight: FontWeight.bold,

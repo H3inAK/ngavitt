@@ -1,17 +1,13 @@
 import 'dart:math';
 
-import 'package:flutter/foundation.dart';
+import 'package:covid19app/providers/global_status_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
-import '../helpers/quick_actions.dart';
 import '../helpers/custom_routes.dart';
 import '../providers/counrties_provider.dart';
 import '../screens/home_screen.dart';
-import '../screens/all_countries.dart';
-import '../screens/search_screen.dart';
-import '../pages/pie_chart_global.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -25,67 +21,47 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     Future.delayed(Duration.zero).then(
       (_) {
-        if (!kIsWeb)
-          AppBannerActions.quickActions.initialize((type) {
-            if (type == 'global') {
-              Navigator.of(context).push(
-                SimplePageRoute(
-                  builder: (ctx) => PieChartPage(),
-                  duration: const Duration(milliseconds: 100),
-                ),
-              );
-            } else if (type == 'countries') {
-              Navigator.of(context).push(
-                SimplePageRoute(
-                  builder: (ctx) => AllCountriesScreen(),
-                  duration: const Duration(milliseconds: 100),
-                ),
-              );
-            } else if (type == 'search') {
-              Navigator.of(context).push(
-                SimplePageRoute(
-                  builder: (ctx) => SearchScreen(),
-                  duration: const Duration(milliseconds: 100),
-                ),
-              );
-            }
-          });
-
-        Provider.of<CountriesProvider>(context, listen: false)
-            .fetchAndSetCountriesData()
+        Provider.of<GlobalStatusProvider>(context, listen: false)
+            .fetchAndSetGlobalStatus()
             .then(
-              (_) => Navigator.of(context).pushReplacement(
-                SimplePageRoute(
-                  builder: (ctx) => HomeScreen(),
-                  duration: const Duration(milliseconds: 200),
-                ),
-              ),
-            )
-            .catchError(
-          (err) {
-            showDialog(
-              context: context,
-              builder: (ctx) {
-                return AlertDialog(
-                  title: Row(
-                    children: [
-                      Icon(Icons.signal_wifi_bad),
-                      SizedBox(width: 20),
-                      Text("Connection Error"),
-                    ],
-                  ),
-                  content: Text("you have no internet connection!"),
-                  actions: [
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(ctx).pop();
-                        setState(() {
-                          _onWillPop = true;
-                        });
-                      },
-                      child: Text("okay"),
+          (value) {
+            Provider.of<CountriesProvider>(context, listen: false)
+                .fetchAndSetCountriesData()
+                .then(
+                  (_) => Navigator.of(context).pushReplacement(
+                    SimplePageRoute(
+                      builder: (ctx) => HomeScreen(),
+                      duration: const Duration(milliseconds: 200),
                     ),
-                  ],
+                  ),
+                )
+                .catchError(
+              (err) {
+                showDialog(
+                  context: context,
+                  builder: (ctx) {
+                    return AlertDialog(
+                      title: Row(
+                        children: [
+                          Icon(Icons.signal_wifi_bad),
+                          SizedBox(width: 20),
+                          Text("Connection Error"),
+                        ],
+                      ),
+                      content: Text("you have no internet connection!"),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(ctx).pop();
+                            setState(() {
+                              _onWillPop = true;
+                            });
+                          },
+                          child: Text("okay"),
+                        ),
+                      ],
+                    );
+                  },
                 );
               },
             );

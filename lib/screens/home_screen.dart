@@ -1,10 +1,15 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
-import 'package:covid19app/helpers/custom_routes.dart';
+import 'package:covid19app/providers/language_provider.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
+import '../helpers/quick_actions.dart';
+import '../helpers/custom_routes.dart';
+import '../pages/pie_chart_global.dart';
 import '../screens/search_screen.dart';
 import '../screens/all_countries.dart';
 import '../widgets/drawers/app_drawer.dart';
@@ -13,93 +18,152 @@ import '../widgets/global/global_case_widget.dart';
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final deviceSize = MediaQuery.of(context).size;
-    var appBar = AppBar(
-      elevation: 0.0,
-      leading: Builder(
-        builder: (ctx) {
-          return IconButton(
-            icon: SvgPicture.asset(
-              "assets/icons/menu.svg",
-              width: 20,
-              color: Theme.of(context).accentColor,
+    if (!kIsWeb)
+      AppBannerActions.quickActions.initialize((type) {
+        if (type == 'global') {
+          Navigator.of(context).push(
+            SimplePageRoute(
+              builder: (ctx) => PieChartPage(),
+              duration: const Duration(milliseconds: 100),
             ),
-            onPressed: () {
-              Scaffold.of(ctx).openDrawer();
-            },
           );
-        },
-      ),
-      title: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SvgPicture.asset(
-            'assets/icons/virus.svg',
-            color: Theme.of(context).accentColor,
-            width: 26,
-          ),
-          SizedBox(width: 6),
-          Text(
-            "NGAVITT",
-            style: GoogleFonts.aclonica(
-              color: Theme.of(context).accentColor,
-              fontWeight: FontWeight.bold,
+        } else if (type == 'countries') {
+          Navigator.of(context).push(
+            SimplePageRoute(
+              builder: (ctx) => AllCountriesScreen(),
+              duration: const Duration(milliseconds: 100),
             ),
-          ),
-          SizedBox(width: 6),
-          SvgPicture.asset(
-            'assets/icons/virus.svg',
-            color: Theme.of(context).accentColor,
-            width: 26,
-          ),
-        ],
-      ),
-      centerTitle: true,
-      actions: [
-        IconButton(
-          icon: SvgPicture.asset(
-            "assets/icons/search.svg",
-            width: 21,
-            color: Theme.of(context).accentColor,
-          ),
-          onPressed: () {
-            // Navigator.of(context).pushNamed(SearchScreen.routeName);
-            Navigator.of(context).push(
-              FadedPageRoute(
-                child: SearchScreen(),
-                duration: const Duration(milliseconds: 20),
-              ),
-            );
-          },
-        ),
-      ],
-    );
+          );
+        } else if (type == 'search') {
+          Navigator.of(context).push(
+            SimplePageRoute(
+              builder: (ctx) => SearchScreen(),
+              duration: const Duration(milliseconds: 100),
+            ),
+          );
+        }
+      });
 
-    return ThemeSwitchingArea(
-      child: Builder(
-        builder: (context) => Scaffold(
-          drawer: AppDrawer(),
-          appBar: appBar,
-          body: Column(
-            children: [
-              Expanded(
-                child: Container(
-                  padding:
-                      EdgeInsets.only(left: 10, top: 18, right: 10, bottom: 20),
-                  width: double.infinity,
-                  color: Color(0xFF53627C).withOpacity(0.02),
-                  child: GlobalCaseCard(),
+    final deviceSize = MediaQuery.of(context).size;
+
+    return FutureBuilder<Map<String, dynamic>>(
+      future: Provider.of<LanguageProvider>(context, listen: false)
+          .savedAppLanguage,
+      builder: (context, snapshot) {
+        if (snapshot.hasData)
+          return ThemeSwitchingArea(
+            child: Builder(
+              builder: (context) => Scaffold(
+                drawer: AppDrawer(),
+                appBar: AppBar(
+                  elevation: 0.0,
+                  leading: Builder(
+                    builder: (ctx) {
+                      return IconButton(
+                        icon: SvgPicture.asset(
+                          "assets/icons/menu.svg",
+                          width: 20,
+                          color: Theme.of(context).accentColor,
+                        ),
+                        onPressed: () {
+                          Scaffold.of(ctx).openDrawer();
+                        },
+                      );
+                    },
+                  ),
+                  title: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SvgPicture.asset(
+                        'assets/icons/virus.svg',
+                        color: Theme.of(context).accentColor,
+                        width: 26,
+                      ),
+                      SizedBox(width: 6),
+                      Text(
+                        snapshot.data['title'],
+                        style: GoogleFonts.aclonica(
+                          color: Theme.of(context).accentColor,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      SizedBox(width: 6),
+                      SvgPicture.asset(
+                        'assets/icons/virus.svg',
+                        color: Theme.of(context).accentColor,
+                        width: 26,
+                      ),
+                    ],
+                  ),
+                  centerTitle: true,
+                  actions: [
+                    IconButton(
+                      icon: SvgPicture.asset(
+                        "assets/icons/search.svg",
+                        width: 21,
+                        color: Theme.of(context).accentColor,
+                      ),
+                      onPressed: () {
+                        // Navigator.of(context).pushNamed(SearchScreen.routeName);
+                        Navigator.of(context).push(
+                          FadedPageRoute(
+                            child: SearchScreen(),
+                            duration: const Duration(milliseconds: 20),
+                          ),
+                        );
+                      },
+                    ),
+                    // DropdownButtonHideUnderline(
+                    //   child: DropdownButton(
+                    //     onChanged: (lang) {
+                    //       Provider.of<LanguageProvider>(context, listen: false)
+                    //           .changeLanguage(lang);
+                    //     },
+                    //     value: appLang,
+                    //     items: [
+                    //       DropdownMenuItem(
+                    //         child: Text("EN"),
+                    //         value: AppLanguage.enLang,
+                    //       ),
+                    //       DropdownMenuItem(
+                    //         child: Text("MY"),
+                    //         value: AppLanguage.myLang,
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                  ],
+                ),
+                body: Column(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.only(
+                          left: 5,
+                          top: 8,
+                          right: 5,
+                          bottom: 20,
+                        ),
+                        width: double.infinity,
+                        color: Color(0xFF53627C).withOpacity(0.02),
+                        child: GlobalCaseCard(),
+                      ),
+                    ),
+                    buildBottomAnimatedActionBar(
+                        deviceSize, context, snapshot.data),
+                  ],
                 ),
               ),
-              buildBottomAnimatedActionBar(deviceSize, context),
-            ],
-          ),
-        ),
-      ),
+            ),
+          );
+        else
+          return Text("");
+      },
     );
   }
 
-  Widget buildBottomAnimatedActionBar(Size deviceSize, BuildContext context) {
+  Widget buildBottomAnimatedActionBar(
+      Size deviceSize, BuildContext context, Map<String, dynamic> appLang) {
     return TweenAnimationBuilder<double>(
       tween: Tween(begin: 1.0, end: 0.0),
       duration: const Duration(milliseconds: 1600),
@@ -130,7 +194,7 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                "See All Countries",
+                appLang['seeallcountries'],
                 style: TextStyle(
                   color: Theme.of(context).accentColor,
                 ),

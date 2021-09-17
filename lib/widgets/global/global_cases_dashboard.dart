@@ -1,3 +1,4 @@
+import 'package:covid19app/providers/language_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,104 +19,110 @@ class _GlobalCasesDashboardState extends State<GlobalCasesDashboard> {
   }
 
   @override
-  void initState() {
-    Future.delayed(Duration.zero).then((_) {
-      _deviceSize = MediaQuery.of(context).size;
-    });
-    super.initState();
+  Widget build(BuildContext context) {
+    final appLang = Provider.of<LanguageProvider>(context).appLanguage;
+    final globalStatusProvider =
+        Provider.of<GlobalStatusProvider>(context, listen: false);
+    print(globalStatusProvider.isRefresh);
+    _deviceSize = MediaQuery.of(context).size;
+
+    return globalStatusProvider.isRefresh
+        ? FutureBuilder<void>(
+            future: _fetchGlobalStatus(context),
+            builder: (ctx, dataSnapshot) {
+              // print("inside futureBuilder()");
+              if (dataSnapshot.connectionState == ConnectionState.waiting) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (dataSnapshot.error == null) {
+                globalStatusProvider.setRefresh = false;
+                return buildGlobalStatusChartBoard(context, appLang);
+              } else {
+                return Center(
+                  child: Text(dataSnapshot.error),
+                );
+              }
+            },
+          )
+        : buildGlobalStatusChartBoard(context, appLang);
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<void>(
-      future: _fetchGlobalStatus(context),
-      builder: (ctx, dataSnapshot) {
-        // print("inside futureBuilder()");
-        if (dataSnapshot.connectionState == ConnectionState.waiting) {
-          return Center(
-            child: CircularProgressIndicator(),
-          );
-        } else if (dataSnapshot.error == null) {
-          return RefreshIndicator(
-            onRefresh: () => _fetchGlobalStatus(context),
-            child: Consumer<GlobalStatusProvider>(
-              builder: (ctx, globalStatusData, _) {
-                // print("refreshGlobalStatus()");
-                return Container(
-                  height: double.infinity,
-                  child: GridView(
-                    physics: BouncingScrollPhysics(),
-                    padding: EdgeInsets.only(bottom: 10),
-                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      childAspectRatio:
-                          _deviceSize.height >= 600 ? (3.14 / 2) : (2.9 / 2),
-                      mainAxisSpacing: 4,
-                      crossAxisSpacing: 4,
-                    ),
-                    children: <InfoCard>[
-                      InfoCard(
-                        title: "Total Confirmed",
-                        titleColor: Colors.orange[300],
-                        cases: globalStatusData.globalStatus.totalConfirmed,
-                        iconColor: Colors.orangeAccent[100],
-                      ),
-                      InfoCard(
-                        title: "New Confirmed",
-                        titleColor: Colors.orange[300],
-                        cases: globalStatusData.globalStatus.newConfirmed,
-                        iconColor: Colors.orangeAccent[100],
-                      ),
-                      InfoCard(
-                        title: "Total Recovered",
-                        titleColor: Colors.green[300],
-                        cases: globalStatusData.globalStatus.totalRecovered,
-                        iconColor: Colors.greenAccent[100],
-                      ),
-                      InfoCard(
-                        title: "New Recovered",
-                        titleColor: Colors.green[300],
-                        cases: globalStatusData.globalStatus.newRecovered,
-                        iconColor: Colors.greenAccent[100],
-                      ),
-                      InfoCard(
-                        title: "Total Deaths",
-                        titleColor: Colors.red[300],
-                        cases: globalStatusData.globalStatus.totalDeaths,
-                        iconColor: Colors.redAccent[100],
-                      ),
-                      InfoCard(
-                        title: "New Deaths",
-                        titleColor: Colors.red[300],
-                        cases: globalStatusData.globalStatus.newDeaths,
-                        iconColor: Colors.redAccent[100],
-                      ),
-                      if (_deviceSize.height >= 600)
-                        InfoCard(
-                          title: "Active Cases",
-                          titleColor: Colors.pink[300],
-                          cases: globalStatusData.globalStatus.activeCases,
-                          iconColor: Colors.pinkAccent[100],
-                        ),
-                      if (_deviceSize.height >= 600)
-                        InfoCard(
-                          title: "Critical Cases",
-                          titleColor: Colors.pink[300],
-                          cases: globalStatusData.globalStatus.criticalCases,
-                          iconColor: Colors.pinkAccent[100],
-                        ),
-                    ],
+  RefreshIndicator buildGlobalStatusChartBoard(
+      BuildContext context, Map<String, dynamic> appLang) {
+    return RefreshIndicator(
+      onRefresh: () => _fetchGlobalStatus(context),
+      child: Consumer<GlobalStatusProvider>(
+        builder: (ctx, globalStatusData, _) {
+          return Container(
+            height: double.infinity,
+            child: GridView(
+              shrinkWrap: true,
+              physics: BouncingScrollPhysics(),
+              padding: EdgeInsets.only(bottom: 10),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio:
+                    _deviceSize.height >= 600 ? (3.14 / 2) : (2.9 / 2),
+                mainAxisSpacing: 2,
+                crossAxisSpacing: 2,
+              ),
+              children: <InfoCard>[
+                InfoCard(
+                  title: appLang['totalcases'],
+                  titleColor: Colors.orange[300],
+                  cases: globalStatusData.globalStatus.totalConfirmed,
+                  iconColor: Colors.orangeAccent[100],
+                ),
+                InfoCard(
+                  title: appLang['todaycases'],
+                  titleColor: Colors.orange[300],
+                  cases: globalStatusData.globalStatus.newConfirmed,
+                  iconColor: Colors.orangeAccent[100],
+                ),
+                InfoCard(
+                  title: appLang['totalrecovered'],
+                  titleColor: Colors.green[300],
+                  cases: globalStatusData.globalStatus.totalRecovered,
+                  iconColor: Colors.greenAccent[100],
+                ),
+                InfoCard(
+                  title: appLang['todayrecovered'],
+                  titleColor: Colors.green[300],
+                  cases: globalStatusData.globalStatus.newRecovered,
+                  iconColor: Colors.greenAccent[100],
+                ),
+                InfoCard(
+                  title: appLang['totaldeath'],
+                  titleColor: Colors.red[300],
+                  cases: globalStatusData.globalStatus.totalDeaths,
+                  iconColor: Colors.redAccent[100],
+                ),
+                InfoCard(
+                  title: appLang['todaydeath'],
+                  titleColor: Colors.red[300],
+                  cases: globalStatusData.globalStatus.newDeaths,
+                  iconColor: Colors.redAccent[100],
+                ),
+                if (_deviceSize.height >= 600)
+                  InfoCard(
+                    title: appLang['activecases'],
+                    titleColor: Colors.pink[300],
+                    cases: globalStatusData.globalStatus.activeCases,
+                    iconColor: Colors.pinkAccent[100],
                   ),
-                );
-              },
+                if (_deviceSize.height >= 600)
+                  InfoCard(
+                    title: appLang['criticalcases'],
+                    titleColor: Colors.pink[300],
+                    cases: globalStatusData.globalStatus.criticalCases,
+                    iconColor: Colors.pinkAccent[100],
+                  ),
+              ],
             ),
           );
-        } else {
-          return Center(
-            child: Text(dataSnapshot.error),
-          );
-        }
-      },
+        },
+      ),
     );
   }
 

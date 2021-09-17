@@ -1,13 +1,50 @@
+import 'package:covid19app/constants/data.dart';
+import 'package:covid19app/providers/language_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import '../../constants/constants.dart';
+// import '../../constants/constants.dart';
 import '../continents/continent_item.dart';
 
 class Continents extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    var appLang =
+        Provider.of<LanguageProvider>(context, listen: false).appLanguage;
     var deviceSize = MediaQuery.of(context).size;
-    var displayedContinents = COTINENTS;
+
+    var displayedContinents = [
+      Category(
+        id: 'c1',
+        title: appLang['asia'],
+        color: Colors.yellowAccent,
+      ),
+      Category(
+        id: 'c2',
+        title: appLang['africa'],
+        color: Colors.greenAccent,
+      ),
+      Category(
+        id: 'c3',
+        title: appLang['europe'],
+        color: Colors.redAccent,
+      ),
+      Category(
+        id: 'c4',
+        title: appLang['northamerica'],
+        color: Colors.orangeAccent,
+      ),
+      Category(
+        id: 'c5',
+        title: appLang['southamerica'],
+        color: Colors.purpleAccent,
+      ),
+      Category(
+        id: 'c6',
+        title: appLang['australia'],
+        color: Color(0xFF53627C),
+      ),
+    ];
 
     return Column(
       children: [

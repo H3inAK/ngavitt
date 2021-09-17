@@ -7,6 +7,13 @@ import '../models/global_status.dart';
 
 class GlobalStatusProvider with ChangeNotifier {
   GlobalStatus _globalStatus = GlobalStatus();
+  bool _isRefresh = false;
+
+  bool get isRefresh => _isRefresh;
+
+  set setRefresh(bool refresh) {
+    _isRefresh = refresh;
+  }
 
   GlobalStatus get globalStatus {
     return _globalStatus;

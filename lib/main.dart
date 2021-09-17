@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 import './providers/global_status_provider.dart';
 import './providers/counrties_provider.dart';
 import './providers/country_status_provider.dart';
+import './providers/language_provider.dart';
 import './helpers/quick_actions.dart';
 import './themes/theme_service.dart';
 import './helpers/custom_routes.dart';
@@ -42,6 +43,9 @@ class MyApp extends StatelessWidget {
       child: Builder(
         builder: (BuildContext context) => MultiProvider(
           providers: [
+            ChangeNotifierProvider(
+              create: (ctx) => LanguageProvider(),
+            ),
             ChangeNotifierProvider(
               create: (ctx) => GlobalStatusProvider(),
             ),

@@ -1,3 +1,4 @@
+import 'package:covid19app/providers/language_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -41,46 +42,48 @@ class _CountryCovidStatusDetailsState extends State<CountryCovidStatusDetails> {
   @override
   Widget build(BuildContext context) {
     var deviceSize = MediaQuery.of(context).size;
+    final appLang = Provider.of<LanguageProvider>(context).appLanguage;
+
     List<Map<String, Object>> allstatus = [
       {
         "cases": widget.countryStatus.cases,
         "color": Colors.orangeAccent,
-        "title": "Total Comfirmed",
+        "title": appLang['totalcases'],
       },
       {
         "cases": widget.countryStatus.todayCases,
         "color": Colors.orangeAccent,
-        "title": "New Comfirmed",
+        "title": appLang['todaycases'],
       },
       {
         "cases": widget.countryStatus.recovered,
         "color": Colors.greenAccent,
-        "title": "Total Recovered",
+        "title": appLang['totalrecovered'],
       },
       {
         "cases": widget.countryStatus.todayRecovered,
         "color": Colors.greenAccent,
-        "title": "Today Recovered",
+        "title": appLang['todayrecovered'],
       },
       {
         "cases": widget.countryStatus.deaths,
         "color": Colors.redAccent,
-        "title": "Total Deaths",
+        "title": appLang['totaldeath'],
       },
       {
         "cases": widget.countryStatus.todayDeaths,
         "color": Colors.redAccent,
-        "title": "Today Deaths",
+        "title": appLang['todaydeath'],
       },
       {
         "cases": widget.countryStatus.active,
-        "color": Colors.orangeAccent,
-        "title": "Active Cases",
+        "color": Colors.pinkAccent,
+        "title": appLang['activecases'],
       },
       {
         "cases": widget.countryStatus.critical,
-        "color": Colors.orangeAccent,
-        "title": "Critical Cases",
+        "color": Colors.pinkAccent,
+        "title": appLang['criticalcases'],
       },
     ];
 
@@ -169,7 +172,7 @@ class _CountryCovidStatusDetailsState extends State<CountryCovidStatusDetails> {
               ],
             ),
           ),
-          buildPieChartCountryPage(widget.countryStatus),
+          buildPieChartCountryPage(widget.countryStatus, appLang),
         ],
       ),
       bottomNavigationBar: ClipRRect(
@@ -301,21 +304,22 @@ class _CountryCovidStatusDetailsState extends State<CountryCovidStatusDetails> {
   }
 }
 
-PieChartCountryPage buildPieChartCountryPage(CountryStatus countryStatus) {
+PieChartCountryPage buildPieChartCountryPage(
+    CountryStatus countryStatus, Map appLang) {
   return PieChartCountryPage(
     [
       ChartData(
-        name: "Active",
+        name: appLang['globalPieChart']['active'],
         color: Colors.orange[400],
         percent: (countryStatus.active / countryStatus.cases) * 100,
       ),
       ChartData(
-        name: "Recovered",
+        name: appLang['globalPieChart']['recovered'],
         color: Colors.green[400],
         percent: (countryStatus.recovered / countryStatus.cases) * 100,
       ),
       ChartData(
-        name: "Deaths",
+        name: appLang['globalPieChart']['comfirmed'],
         color: Colors.redAccent[400],
         percent: (countryStatus.deaths / countryStatus.cases) * 100,
       ),

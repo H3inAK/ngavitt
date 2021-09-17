@@ -1,11 +1,13 @@
 import 'dart:async';
 
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:covid19app/providers/language_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../widgets/drawers/app_drawer.dart';
@@ -42,6 +44,9 @@ class _AboutAuthorState extends State<AboutAuthor>
 
   @override
   Widget build(BuildContext context) {
+    final appLang =
+        Provider.of<LanguageProvider>(context, listen: false).appLanguage;
+
     return ThemeSwitchingArea(
       child: Scaffold(
         drawer: AppDrawer(),
@@ -61,7 +66,7 @@ class _AboutAuthorState extends State<AboutAuthor>
             },
           ),
           title: Text(
-            "ABOUT AUTHOR",
+            appLang['contactme'],
             style: GoogleFonts.aclonica(
               color: Theme.of(context).accentColor,
               fontWeight: FontWeight.bold,

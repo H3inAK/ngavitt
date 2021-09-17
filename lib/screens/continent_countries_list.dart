@@ -1,3 +1,4 @@
+import 'package:covid19app/providers/language_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -10,6 +11,16 @@ import '../helpers/popup_submenu.dart';
 import '../screens/search_screen.dart';
 import '../widgets/countries/country_item.dart';
 
+//fix the continent language bug
+var continent = {
+  'အာရှ': "Asia",
+  'အာဖရိက': "Africa",
+  'ဥရောပ': "Europe",
+  'တောင်အမေရိက': "South America",
+  'မြောက်အမေရိက': "North America",
+  'ဩစတေးလျ': "Australia",
+};
+
 class ContinentCountriesList extends StatelessWidget {
   final String continentName;
 
@@ -17,13 +28,22 @@ class ContinentCountriesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final countries =
-        Provider.of<CountriesProvider>(context).findByContinent(continentName);
+    final appLang = Provider.of<LanguageProvider>(
+      context,
+      listen: false,
+    ).appLanguage;
+    final countries = Provider.of<CountriesProvider>(context).findByContinent(
+      appLang['code'] == 'en' ||
+              appLang['code'] == 'ch' ||
+              appLang['code'] == 'vn'
+          ? continentName
+          : continent[continentName],
+    );
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          continentName + " Countries",
+          continentName + appLang['countries'],
           style: GoogleFonts.openSans(
             fontWeight: FontWeight.bold,
             color: Theme.of(context).accentColor,
@@ -51,13 +71,13 @@ class ContinentCountriesList extends StatelessWidget {
             itemBuilder: (BuildContext context) {
               return <PopupMenuEntry<String>>[
                 PopupSubMenuItem<String>(
-                  title: 'Sort by names',
+                  title: appLang['sortbyName'],
                   items: [
-                    "by ascending",
-                    "by descending",
+                    appLang['byascending'],
+                    appLang['bydescending'],
                   ],
                   onSelected: (String filterOptions) {
-                    if (filterOptions == "by ascending") {
+                    if (filterOptions == appLang['byascending']) {
                       Provider.of<CountriesProvider>(context, listen: false)
                           .sortByNames(isAcse: true);
                     } else {
@@ -67,13 +87,13 @@ class ContinentCountriesList extends StatelessWidget {
                   },
                 ),
                 PopupSubMenuItem<String>(
-                  title: 'Sort by total cases',
+                  title: appLang['sortbytotalcases'],
                   items: [
-                    "by ascending",
-                    "by descending",
+                    appLang['byascending'],
+                    appLang['bydescending'],
                   ],
                   onSelected: (String filterOptions) {
-                    if (filterOptions == "by ascending") {
+                    if (filterOptions == appLang['byascending']) {
                       Provider.of<CountriesProvider>(context, listen: false)
                           .sortByTotalCases(isAcse: true);
                     } else {
@@ -83,13 +103,13 @@ class ContinentCountriesList extends StatelessWidget {
                   },
                 ),
                 PopupSubMenuItem<String>(
-                  title: 'Sort by active cases',
+                  title: appLang['sortbyactivecases'],
                   items: [
-                    "by ascending",
-                    "by descending",
+                    appLang['byascending'],
+                    appLang['bydescending'],
                   ],
                   onSelected: (String filterOptions) {
-                    if (filterOptions == "by ascending") {
+                    if (filterOptions == appLang['byascending']) {
                       Provider.of<CountriesProvider>(context, listen: false)
                           .sortByActiveCases(isAcse: true);
                     } else {

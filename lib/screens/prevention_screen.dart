@@ -1,7 +1,9 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
+import 'package:covid19app/providers/language_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/drawers/app_drawer.dart';
 import '../widgets/cards/preventation_card.dart';
@@ -9,6 +11,9 @@ import '../widgets/cards/preventation_card.dart';
 class PreventionScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final appLang =
+        Provider.of<LanguageProvider>(context, listen: false).appLanguage;
+
     return ThemeSwitchingArea(
       child: Scaffold(
         drawer: AppDrawer(),
@@ -28,7 +33,7 @@ class PreventionScreen extends StatelessWidget {
             },
           ),
           title: Text(
-            "PREVENTIONS",
+            appLang['preventions'],
             style: GoogleFonts.aclonica(
               color: Theme.of(context).accentColor,
               fontWeight: FontWeight.bold,
@@ -51,30 +56,30 @@ class PreventionScreen extends StatelessWidget {
                 children: [
                   PreventitonCard(
                     svgSrc: "assets/icons/hand_wash.svg",
-                    title: "Wash Hands",
+                    title: appLang['preventionsWays']['washHands'],
                   ),
                   SizedBox(width: 20),
                   PreventitonCard(
                     svgSrc: "assets/icons/use_mask.svg",
-                    title: "Use Masks",
+                    title: appLang['preventionsWays']['wearMasks'],
                   ),
                   SizedBox(width: 20),
                   PreventitonCard(
                     svgSrc: "assets/icons/Clean_Disinfect.svg",
-                    title: "Clean Disinfect",
+                    title: appLang['preventionsWays']['cleaning'],
                   ),
                 ],
               ),
             ),
             SizedBox(height: 20),
-            buildHelpCard(context),
+            buildHelpCard(context, appLang),
           ],
         ),
       ),
     );
   }
 
-  Container buildHelpCard(BuildContext context) {
+  Container buildHelpCard(BuildContext context, Map appLang) {
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: 12,
@@ -106,14 +111,14 @@ class PreventionScreen extends StatelessWidget {
               text: TextSpan(
                 children: [
                   TextSpan(
-                    text: "Dial 999 for \nMedical Help!\n",
+                    text: appLang['preventionsWays']['dail'],
                     style: Theme.of(context)
                         .textTheme
                         .headline6
                         .copyWith(color: Colors.white),
                   ),
                   TextSpan(
-                    text: "If any symptoms appear",
+                    text: appLang['preventionsWays']['symptoms'],
                     style: TextStyle(
                       color: Colors.white.withOpacity(0.7),
                     ),

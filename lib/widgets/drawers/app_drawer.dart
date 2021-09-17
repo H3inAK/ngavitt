@@ -1,16 +1,19 @@
 import 'dart:math';
 
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
-import 'package:covid19app/screens/about_me.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:provider/provider.dart';
 // import 'package:flutter/scheduler.dart' show timeDilation;
 
 import '../../themes/theme_service.dart';
 import '../../helpers/custom_routes.dart';
+import '../../providers/language_provider.dart';
 import '../../screens/home_screen.dart';
 import '../../screens/prevention_screen.dart';
+import '../../screens/about_me.dart';
+import '../../pages/applanguage_setting.dart';
 import '../../pages/pie_chart_global.dart';
 
 class AppDrawer extends StatefulWidget {
@@ -42,6 +45,8 @@ class _AppDrawerState extends State<AppDrawer>
 
   @override
   Widget build(BuildContext context) {
+    final appLang = Provider.of<LanguageProvider>(context).appLanguage;
+
     return Drawer(
       child: Container(
         color: Theme.of(context).scaffoldBackgroundColor,
@@ -51,10 +56,10 @@ class _AppDrawerState extends State<AppDrawer>
               ListView(
                 padding: EdgeInsets.zero,
                 children: [
-                  buildDrawerHeader(),
+                  buildDrawerHeader(appLang),
                   buildDrawerItem(
                     Icons.home_filled,
-                    "See All Status",
+                    appLang['seeallstatus'],
                     () => Navigator.of(context).pushReplacement(
                       CustomRoute(
                         builder: (ctx) => HomeScreen(),
@@ -63,7 +68,7 @@ class _AppDrawerState extends State<AppDrawer>
                   ),
                   buildDrawerItem(
                     Icons.masks_sharp,
-                    "Preventions",
+                    appLang['preventions'],
                     () => Navigator.of(context).pushReplacement(
                       CustomRoute(
                         builder: (ctx) => PreventionScreen(),
@@ -72,7 +77,7 @@ class _AppDrawerState extends State<AppDrawer>
                   ),
                   buildDrawerItem(
                     Icons.bar_chart,
-                    "Global PieChart",
+                    appLang['globalpiechart'],
                     () => Navigator.of(context).pushReplacement(
                       CustomRoute(
                         builder: (ctx) => PieChartPage(),
@@ -81,10 +86,19 @@ class _AppDrawerState extends State<AppDrawer>
                   ),
                   buildDrawerItem(
                     Icons.person_rounded,
-                    "About Author",
+                    appLang['contactme'],
                     () => Navigator.of(context).pushReplacement(
                       CustomRoute(
                         builder: (ctx) => AboutAuthor(),
+                      ),
+                    ),
+                  ),
+                  buildDrawerItem(
+                    Icons.language,
+                    appLang['changelanguage'],
+                    () => Navigator.of(context).pushReplacement(
+                      CustomRoute(
+                        builder: (ctx) => LanguageSetting(),
                       ),
                     ),
                   ),
@@ -103,8 +117,8 @@ class _AppDrawerState extends State<AppDrawer>
     var themeName = themeBrightness == Brightness.light ? 'dark' : 'light';
 
     return Positioned(
-      top: kIsWeb ? 16 : 0,
-      right: kIsWeb ? 20 : 10,
+      top: kIsWeb ? 16 : 6,
+      right: kIsWeb ? 20 : 13,
       child: ThemeSwitcher(
         builder: (context) {
           return GestureDetector(
@@ -149,7 +163,7 @@ class _AppDrawerState extends State<AppDrawer>
     );
   }
 
-  Widget buildDrawerHeader() {
+  Widget buildDrawerHeader(Map appLang) {
     return Container(
       child: DrawerHeader(
         child: Column(

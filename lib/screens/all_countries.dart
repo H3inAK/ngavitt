@@ -1,5 +1,7 @@
+import 'package:covid19app/providers/language_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_icons/flutter_icons.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -22,6 +24,8 @@ class AllCountriesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final appLang = Provider.of<LanguageProvider>(context).appLanguage;
+
     return DefaultTabController(
       length: 2,
       child: Scaffold(
@@ -40,7 +44,7 @@ class AllCountriesScreen extends StatelessWidget {
                     snap: true,
                     centerTitle: true,
                     title: Text(
-                      "All Countries",
+                      appLang['allcountries'],
                       style: GoogleFonts.inter(
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).accentColor,
@@ -54,7 +58,10 @@ class AllCountriesScreen extends StatelessWidget {
                             duration: const Duration(milliseconds: 100),
                           ),
                         ),
-                        icon: Icon(Icons.search),
+                        icon: Icon(
+                          FontAwesome.search,
+                          size: 22,
+                        ),
                       ),
                       PopupMenuButton<String>(
                         icon: Icon(Icons.more_vert),
@@ -65,13 +72,13 @@ class AllCountriesScreen extends StatelessWidget {
                         itemBuilder: (BuildContext context) {
                           return <PopupMenuEntry<String>>[
                             PopupSubMenuItem<String>(
-                              title: 'Sort by names',
+                              title: appLang['sortbyName'],
                               items: [
-                                "by ascending",
-                                "by descending",
+                                appLang['byascending'],
+                                appLang['bydescending'],
                               ],
                               onSelected: (String filterOptions) {
-                                if (filterOptions == "by ascending") {
+                                if (filterOptions == appLang['byascending']) {
                                   Provider.of<CountriesProvider>(context,
                                           listen: false)
                                       .sortByNames(isAcse: true);
@@ -83,13 +90,13 @@ class AllCountriesScreen extends StatelessWidget {
                               },
                             ),
                             PopupSubMenuItem<String>(
-                              title: 'Sort by total cases',
+                              title: appLang['sortbytotalcases'],
                               items: [
-                                "by ascending",
-                                "by descending",
+                                appLang['byascending'],
+                                appLang['bydescending'],
                               ],
                               onSelected: (String filterOptions) {
-                                if (filterOptions == "by ascending") {
+                                if (filterOptions == appLang['byascending']) {
                                   Provider.of<CountriesProvider>(context,
                                           listen: false)
                                       .sortByTotalCases(isAcse: true);
@@ -101,13 +108,13 @@ class AllCountriesScreen extends StatelessWidget {
                               },
                             ),
                             PopupSubMenuItem<String>(
-                              title: 'Sort by active cases',
+                              title: appLang['sortbyactivecases'],
                               items: [
-                                "by ascending",
-                                "by descending",
+                                appLang['byascending'],
+                                appLang['bydescending'],
                               ],
                               onSelected: (String filterOptions) {
-                                if (filterOptions == "by ascending") {
+                                if (filterOptions == appLang['byascending']) {
                                   Provider.of<CountriesProvider>(context,
                                           listen: false)
                                       .sortByActiveCases(isAcse: true);
@@ -126,11 +133,11 @@ class AllCountriesScreen extends StatelessWidget {
                       tabs: [
                         Tab(
                           icon: Icon(Icons.format_list_numbered_rtl),
-                          text: "Countries",
+                          text: appLang['countries'],
                         ),
                         Tab(
                           icon: Icon(Icons.grid_view),
-                          text: "Continents",
+                          text: appLang['continents'],
                         ),
                       ],
                     ),

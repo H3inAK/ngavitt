@@ -1,6 +1,8 @@
+import 'package:covid19app/providers/language_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 import '../../constants/constants.dart';
 import 'line_chart.dart';
@@ -10,6 +12,7 @@ class InfoCard extends StatelessWidget {
   final int cases;
   final Color iconColor;
   final Color titleColor;
+  final String langCode;
 
   const InfoCard({
     Key key,
@@ -17,10 +20,14 @@ class InfoCard extends StatelessWidget {
     this.titleColor,
     this.cases,
     this.iconColor,
+    this.langCode,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final appLang =
+        Provider.of<LanguageProvider>(context, listen: false).appLanguage;
+
     return LayoutBuilder(
       builder: (context, constraints) {
         return TweenAnimationBuilder<double>(
@@ -54,23 +61,22 @@ class InfoCard extends StatelessWidget {
                     Padding(
                       padding: const EdgeInsets.all(6.0),
                       child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
                           // wrapped within an expanded widget to allow for small density device
-                          Expanded(
-                            child: Container(
-                              alignment: Alignment.center,
-                              height: 30,
-                              width: 30,
-                              decoration: BoxDecoration(
-                                color: iconColor.withOpacity(0.12),
-                                shape: BoxShape.circle,
-                              ),
-                              child: SvgPicture.asset(
-                                "assets/icons/running.svg",
-                                height: 16,
-                                width: 16,
-                                color: iconColor,
-                              ),
+                          Container(
+                            alignment: Alignment.center,
+                            height: 30,
+                            width: 30,
+                            decoration: BoxDecoration(
+                              color: iconColor.withOpacity(0.12),
+                              shape: BoxShape.circle,
+                            ),
+                            child: SvgPicture.asset(
+                              "assets/icons/running.svg",
+                              height: 16,
+                              width: 16,
+                              color: iconColor,
                             ),
                           ),
                           SizedBox(width: 5),
@@ -82,7 +88,7 @@ class InfoCard extends StatelessWidget {
                             style: GoogleFonts.oswald(
                               color: titleColor,
                               fontWeight: FontWeight.w500,
-                              fontSize: 20,
+                              fontSize: appLang['code'] == 'en' ? 18 : 16,
                             ),
                           )
                         ],
@@ -108,7 +114,7 @@ class InfoCard extends StatelessWidget {
                                         ),
                                   ),
                                   TextSpan(
-                                    text: "People",
+                                    text: appLang['people'],
                                     style: TextStyle(
                                       fontSize: 12,
                                       height: 2,

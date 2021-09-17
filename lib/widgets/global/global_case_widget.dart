@@ -1,7 +1,10 @@
 import 'dart:math';
 
+import 'package:covid19app/providers/global_status_provider.dart';
+import 'package:covid19app/providers/language_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import './global_cases_dashboard.dart';
 
@@ -38,6 +41,8 @@ class _GlobalCaseCardState extends State<GlobalCaseCard>
 
   @override
   Widget build(BuildContext context) {
+    final appLang = Provider.of<LanguageProvider>(context).appLanguage;
+
     return LayoutBuilder(
       builder: (ctx, cst) {
         return Column(
@@ -59,6 +64,8 @@ class _GlobalCaseCardState extends State<GlobalCaseCard>
                 onPressed: () {
                   setState(() {});
                   _rotationAnimationListener.forward();
+                  Provider.of<GlobalStatusProvider>(context, listen: false)
+                      .setRefresh = true;
                 },
                 // the parent is already stateful and for that
                 // we use AnimatedBuilder to performace optimization
@@ -76,7 +83,7 @@ class _GlobalCaseCardState extends State<GlobalCaseCard>
                   ),
                 ),
                 label: Text(
-                  "Refresh Cases",
+                  appLang['refreshcases'],
                   style: TextStyle(
                     color: Theme.of(context).accentColor,
                   ),

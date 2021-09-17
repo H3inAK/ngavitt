@@ -1,4 +1,5 @@
 import 'package:covid19app/providers/counrties_provider.dart';
+import 'package:covid19app/providers/language_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -23,6 +24,8 @@ class CountryItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SortingType sortingType = Provider.of<CountriesProvider>(context).sortType;
+    final appLang =
+        Provider.of<LanguageProvider>(context, listen: false).appLanguage;
 
     return TweenAnimationBuilder<double>(
       duration: const Duration(milliseconds: 1200),
@@ -117,8 +120,12 @@ class CountryItem extends StatelessWidget {
                   ],
                 ),
           subtitle: sortingType == SortingType.active
-              ? Text("active cases - " + countryStatus.active.toString())
-              : Text("total cases - " + countryStatus.cases.toString()),
+              ? Text(appLang['activecases'] +
+                  " - " +
+                  countryStatus.active.toString())
+              : Text(appLang['totalcases'] +
+                  " - " +
+                  countryStatus.cases.toString()),
           trailing: Icon(
             Icons.arrow_forward_ios,
             color: Theme.of(context).accentColor,
