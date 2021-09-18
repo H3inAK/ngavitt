@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:covid19app/providers/global_status_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
 
@@ -127,6 +128,26 @@ class _SplashScreenState extends State<SplashScreen> {
                 builder: (context, value, child) {
                   return Transform.translate(
                     offset: Offset(0.0, 400 * value),
+                    child: child,
+                  );
+                },
+              ),
+              SizedBox(height: 20),
+              TweenAnimationBuilder<double>(
+                tween: Tween(begin: 1.0, end: 0.0),
+                duration: const Duration(milliseconds: 900),
+                curve: Curves.elasticOut,
+                child: Container(
+                  width: 100,
+                  height: 20,
+                  child: LinearProgressIndicator(
+                    color: Theme.of(context).accentColor,
+                    // size: MediaQuery.of(context).size.height * 0.12,
+                  ),
+                ),
+                builder: (context, value, child) {
+                  return Transform.translate(
+                    offset: Offset(0.0, -400 * value),
                     child: child,
                   );
                 },

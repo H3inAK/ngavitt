@@ -21,6 +21,8 @@ dependencies:
   shared_preferences:
   google_fonts:
   flutter_icons:
+  flutter_spinkit:
+  cached_network_image: ^2.3.2+1
   cupertino_icons: ^0.1.3
   quick_actions: 
   url_launcher:

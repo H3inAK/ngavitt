@@ -82,7 +82,7 @@ class AppLanguage {
       'title': "Global Chart Status",
       'active': "Active Percentage",
       'recovered': "Recovered Percentage",
-      'comfirmed': "Comfirmed Percentage",
+      'death': "Comfirmed Percentage",
     }
   };
 
@@ -128,15 +128,15 @@ class AppLanguage {
       'title': 'Preventions',
       'dail': 'အကူညီလိုရင်\n ၉၉၉ ကို\n',
       'symptoms': 'ဆက်သွယ်လိုက်ပါ',
-      'washHands': 'mask ဆေးပါ',
-      'wearMasks': 'လက်တပ်ပါ',
+      'washHands': 'လက်ဆေးပါ',
+      'wearMasks': 'mask တပ်ပါ',
       'cleaning': 'သန့်ရှင်းရေးလုပ်ပါ',
     },
     'globalPieChart': {
       'title': "ကမ္ဘာ့အခြေအနေ",
       'active': "လက်ရှိလူနာရာခိုင်နှုန်း",
       'recovered': "ပျောက်ကင်းသူရာခိုင်နှုန်း",
-      'comfirmed': "စုစုပေါင်းရာခိုင်နှုန်း",
+      'death': "စုစုပေါင်းရာခိုင်နှုန်း",
     }
   };
 

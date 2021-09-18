@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:covid19app/providers/counrties_provider.dart';
 import 'package:covid19app/providers/language_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/counrty_status.dart';
@@ -51,19 +53,10 @@ class CountryItem extends StatelessWidget {
                 duration: const Duration(milliseconds: 600),
               ),
             );
-            // Navigator.of(context).pushNamed(
-            //   CountryDetailsScreen.routeName,
-            //   arguments: countryStatus.countryName,
-            // );
           },
           leading: Hero(
             tag: countryStatus.countryName ??
                 ValueKey(countryStatus.countryFlag),
-            // child: CircleAvatar(
-            //   backgroundImage: NetworkImage(
-            //     countryStatus.countryFlag,
-            //   ),
-            // ),
             child: Container(
               width: 50,
               height: 40,
@@ -80,12 +73,17 @@ class CountryItem extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(6.0),
-                child: FadeInImage(
+                clipBehavior: Clip.antiAliasWithSaveLayer,
+                child: CachedNetworkImage(
+                  imageUrl: countryStatus.countryFlag,
+                  cacheKey: countryStatus.countryName ??
+                      ValueKey(countryStatus.countryFlag),
                   fit: BoxFit.fill,
-                  placeholder: AssetImage('assets/images/map.png'),
-                  image: NetworkImage(
-                    countryStatus.countryFlag,
-                  ),
+                  progressIndicatorBuilder: (context, url, downloadProgress) {
+                    return LinearProgressIndicator(
+                      color: Theme.of(context).accentColor,
+                    );
+                  },
                 ),
               ),
             ),

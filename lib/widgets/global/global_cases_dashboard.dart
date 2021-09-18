@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/language_provider.dart';
@@ -37,7 +38,10 @@ class _GlobalCasesDashboardState extends State<GlobalCasesDashboard> {
               // print("inside futureBuilder()");
               if (dataSnapshot.connectionState == ConnectionState.waiting) {
                 return Center(
-                  child: CircularProgressIndicator(),
+                  child: SpinKitCubeGrid(
+                    size: _deviceSize.height * 0.1,
+                    color: Theme.of(context).accentColor,
+                  ),
                 );
               } else if (dataSnapshot.error == null) {
                 globalStatusProvider.setRefresh = false;
@@ -64,13 +68,13 @@ class _GlobalCasesDashboardState extends State<GlobalCasesDashboard> {
               globalStatusData,
               1,
             );
-          else if (_deviceSize.width >= 350 && _deviceSize.width <= 700)
+          else if (_deviceSize.width >= 350 && _deviceSize.width <= 650)
             return buildGridView(
               appLang,
               globalStatusData,
               2,
             );
-          else if (_deviceSize.width > 700 && _deviceSize.width <= 1000)
+          else if (_deviceSize.width > 650 && _deviceSize.width <= 900)
             return buildGridView(
               appLang,
               globalStatusData,

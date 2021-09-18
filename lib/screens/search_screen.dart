@@ -1,5 +1,6 @@
 import 'package:covid19app/providers/language_provider.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
@@ -80,8 +81,10 @@ class _SearchScreenState extends State<SearchScreen> {
         actions: [
           Container(
             margin: const EdgeInsets.symmetric(vertical: 5),
-            width: MediaQuery.of(context).size.width -
-                (MediaQuery.of(context).size.width * 0.14),
+            width: kIsWeb
+                ? MediaQuery.of(context).size.width -
+                    (MediaQuery.of(context).size.width * 0.14)
+                : MediaQuery.of(context).size.width * 0.75,
             child: TextField(
               onChanged: (value) => _filterSearchResult(value),
               controller: textEditingController,
