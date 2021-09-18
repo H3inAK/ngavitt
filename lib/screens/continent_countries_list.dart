@@ -18,7 +18,31 @@ var continent = {
   'ဥရောပ': "Europe",
   'တောင်အမေရိက': "South America",
   'မြောက်အမေရိက': "North America",
-  'ဩစတေးလျ': "Australia",
+  'ဩစတေးလျ': "Australia-Oceania",
+  'เอเชีย': "Asia",
+  'แอฟริกา': "Africa",
+  'ยุโรป': "Europe",
+  'อเมริกาเหนือ': "South America",
+  'อเมริกาใต้': "North America",
+  'ออสเตรเลีย': "Australia-Oceania",
+  'Châu Á': "Asia",
+  'Châu phi': "Africa",
+  'Châu Âu': "Europe",
+  'Nam Mỹ': "South America",
+  'Bắc Mỹ': "North America",
+  'Châu Úc': "Australia-Oceania",
+  'Азия': "Asia",
+  'Африке': "Africa",
+  'Европа': "Europe",
+  'Южная Америка': "South America",
+  'Северная Америка': "North America",
+  'Австралия': "Australia-Oceania",
+  '亚洲': "Asia",
+  '非洲': "Africa",
+  '欧洲': "Europe",
+  '北美': "South America",
+  '南美洲': "North America",
+  '澳大利亚': "Australia-Oceania",
 };
 
 class ContinentCountriesList extends StatelessWidget {
@@ -33,17 +57,13 @@ class ContinentCountriesList extends StatelessWidget {
       listen: false,
     ).appLanguage;
     final countries = Provider.of<CountriesProvider>(context).findByContinent(
-      appLang['code'] == 'en' ||
-              appLang['code'] == 'ch' ||
-              appLang['code'] == 'vn'
-          ? continentName
-          : continent[continentName],
+      appLang['code'] == 'en' ? continentName : continent[continentName],
     );
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          continentName + appLang['countries'],
+          continentName + " " + appLang['countries'],
           style: GoogleFonts.openSans(
             fontWeight: FontWeight.bold,
             color: Theme.of(context).accentColor,

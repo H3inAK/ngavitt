@@ -129,8 +129,11 @@ class _CountryCovidStatusDetailsState extends State<CountryCovidStatusDetails> {
                         const EdgeInsets.symmetric(horizontal: 6, vertical: 10),
                     sliver: SliverGrid(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        childAspectRatio:
-                            deviceSize.height >= 600 ? (3.14 / 2) : (2.9 / 2),
+                        childAspectRatio: kIsWeb
+                            ? (3.45 / 2)
+                            : deviceSize.height >= 600
+                                ? (3.14 / 2)
+                                : (2.9 / 2),
                         crossAxisCount: 2,
                       ),
                       delegate: SliverChildBuilderDelegate(
@@ -153,8 +156,11 @@ class _CountryCovidStatusDetailsState extends State<CountryCovidStatusDetails> {
                     sliver: SliverGrid(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
-                        childAspectRatio:
-                            deviceSize.height >= 600 ? (3.14 / 2) : (2.9 / 2),
+                        childAspectRatio: kIsWeb
+                            ? (3.45 / 2)
+                            : deviceSize.height >= 600
+                                ? (3.14 / 2)
+                                : (2.9 / 2),
                       ),
                       delegate: SliverChildBuilderDelegate(
                         (ctx, index) {
@@ -319,7 +325,7 @@ PieChartCountryPage buildPieChartCountryPage(
         percent: (countryStatus.recovered / countryStatus.cases) * 100,
       ),
       ChartData(
-        name: appLang['globalPieChart']['comfirmed'],
+        name: appLang['globalPieChart']['death'],
         color: Colors.redAccent[400],
         percent: (countryStatus.deaths / countryStatus.cases) * 100,
       ),

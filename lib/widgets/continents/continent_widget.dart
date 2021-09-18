@@ -50,7 +50,7 @@ class Continents extends StatelessWidget {
       children: [
         Container(
           width: double.infinity,
-          height: deviceSize.height >= 700 ? 280 : 240,
+          height: deviceSize.height >= 700 ? 340 : 240,
           padding: EdgeInsets.symmetric(
             vertical: 20,
             horizontal: 15,
@@ -66,7 +66,7 @@ class Continents extends StatelessWidget {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage('assets/images/map.png'),
-                      fit: BoxFit.cover,
+                      fit: BoxFit.fill,
                     ),
                     borderRadius: BorderRadius.circular(8),
                   ),
@@ -86,8 +86,8 @@ class Continents extends StatelessWidget {
             physics: BouncingScrollPhysics(),
             padding: EdgeInsets.symmetric(horizontal: 20),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              childAspectRatio: deviceSize.height >= 700 ? 3.3 / 2 : 3.5 / 2,
+              crossAxisCount: deviceSize.width >= 750 ? 3 : 2,
+              childAspectRatio: deviceSize.height >= 600 ? 3.3 / 2 : 3.5 / 2,
               crossAxisSpacing: 10,
               mainAxisSpacing: 12,
             ),

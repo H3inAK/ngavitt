@@ -196,6 +196,7 @@ class LanguageSetting extends StatelessWidget {
                     children: [
                       Card(
                         clipBehavior: Clip.antiAliasWithSaveLayer,
+                        elevation: 30,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(10),
                         ),

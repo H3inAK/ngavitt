@@ -65,7 +65,7 @@ class AllCountriesScreen extends StatelessWidget {
                       ),
                       PopupMenuButton<String>(
                         icon: Icon(Icons.more_vert),
-                        tooltip: 'Parent menu',
+                        tooltip: 'Sort Countries',
                         onSelected: (value) {
                           print(value);
                         },

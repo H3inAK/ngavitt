@@ -85,7 +85,7 @@ class _AppDrawerState extends State<AppDrawer>
                     ),
                   ),
                   buildDrawerItem(
-                    Icons.person_rounded,
+                    Icons.person_pin_sharp,
                     appLang['contactme'],
                     () => Navigator.of(context).pushReplacement(
                       CustomRoute(

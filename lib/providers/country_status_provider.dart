@@ -20,6 +20,7 @@ class CountryStatusProvider with ChangeNotifier {
       final responseData = jsonDecode(response.body);
 
       _countryStatus = CountryStatus.fromJson(responseData);
+      print(_countryStatus.continent);
       notifyListeners();
     } else {
       throw Exception("failed to load data!");

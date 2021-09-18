@@ -204,16 +204,19 @@ class _AboutAuthorState extends State<AboutAuthor>
                   )
                 : ShakeTransition.repeatTransition(
                     animationController: _animationController,
-                    child: TextButton(
+                    child: OutlinedButton(
                       onPressed: () {
                         print("it works");
                         _launchURL('https://ngavitt.netlify.app');
                       },
-                      child: SelectableText(
-                        "https://ngavitt.netlify.app",
-                        style: TextStyle(
-                          color: Colors.blue,
-                          fontSize: 18,
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: SelectableText(
+                          "https://ngavitt.netlify.app",
+                          style: TextStyle(
+                            color: Colors.blue,
+                            fontSize: 18,
+                          ),
                         ),
                       ),
                     ),

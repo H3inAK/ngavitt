@@ -80,7 +80,8 @@ class _SearchScreenState extends State<SearchScreen> {
         actions: [
           Container(
             margin: const EdgeInsets.symmetric(vertical: 5),
-            width: MediaQuery.of(context).size.width * 0.75,
+            width: MediaQuery.of(context).size.width -
+                (MediaQuery.of(context).size.width * 0.14),
             child: TextField(
               onChanged: (value) => _filterSearchResult(value),
               controller: textEditingController,
@@ -91,6 +92,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 contentPadding: EdgeInsets.only(top: 4),
                 prefixIcon: const Icon(
                   Icons.search,
+                  color: Colors.grey,
                 ),
                 hintText: appLang['searchcountrybyname'],
                 fillColor: Theme.of(context).scaffoldBackgroundColor,

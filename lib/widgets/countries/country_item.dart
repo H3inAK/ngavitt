@@ -34,7 +34,7 @@ class CountryItem extends StatelessWidget {
       builder: (context, value, child) {
         return isAninmate
             ? Transform.scale(
-                scale: value.clamp(0.7, 1.0),
+                scale: value.clamp(0.86, 1.0),
                 child: child,
               )
             : child;

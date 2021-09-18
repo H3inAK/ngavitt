@@ -102,7 +102,7 @@ class _PieChartPageState extends State<PieChartPage> {
               (globalStatus.totalRecovered / globalStatus.totalConfirmed) * 100,
           color: Colors.green[400]),
       ChartData(
-          name: appLang['globalPieChart']['comfirmed'],
+          name: appLang['globalPieChart']['death'],
           percent:
               (globalStatus.totalDeaths / globalStatus.totalConfirmed) * 100,
           color: Colors.red[400]),
