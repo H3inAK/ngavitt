@@ -22,6 +22,13 @@ class Category {
   });
 }
 
+class MenuItem {
+  final String title;
+  final IconData iconData;
+
+  MenuItem(this.title, this.iconData);
+}
+
 Map<String, dynamic> languages = {
   'en': AppLanguage.enLang,
   'my': AppLanguage.myLang,
@@ -82,7 +89,7 @@ class AppLanguage {
       'title': "Global Chart Status",
       'active': "Active Percentage",
       'recovered': "Recovered Percentage",
-      'death': "Comfirmed Percentage",
+      'death': "Death Percentage",
     }
   };
 
@@ -136,7 +143,7 @@ class AppLanguage {
       'title': "ကမ္ဘာ့အခြေအနေ",
       'active': "လက်ရှိလူနာရာခိုင်နှုန်း",
       'recovered': "ပျောက်ကင်းသူရာခိုင်နှုန်း",
-      'death': "စုစုပေါင်းရာခိုင်နှုန်း",
+      'death': "သေဆုံးရာခိုင်နှုန်း",
     }
   };
 

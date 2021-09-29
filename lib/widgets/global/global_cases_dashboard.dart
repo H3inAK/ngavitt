@@ -27,15 +27,10 @@ class _GlobalCasesDashboardState extends State<GlobalCasesDashboard> {
         Provider.of<GlobalStatusProvider>(context, listen: false);
     _deviceSize = MediaQuery.of(context).size;
 
-    // print(globalStatusProvider.isRefresh);
-    print(_deviceSize.width);
-    print(_deviceSize.height);
-
     return globalStatusProvider.isRefresh
         ? FutureBuilder<void>(
             future: _fetchGlobalStatus(context),
             builder: (ctx, dataSnapshot) {
-              // print("inside futureBuilder()");
               if (dataSnapshot.connectionState == ConnectionState.waiting) {
                 return Center(
                   child: SpinKitCubeGrid(
@@ -91,8 +86,11 @@ class _GlobalCasesDashboardState extends State<GlobalCasesDashboard> {
     );
   }
 
-  Container buildGridView(Map<String, dynamic> appLang,
-      GlobalStatusProvider globalStatusData, int crossAxisCount) {
+  Container buildGridView(
+    Map<String, dynamic> appLang,
+    GlobalStatusProvider globalStatusData,
+    int crossAxisCount,
+  ) {
     return Container(
       height: double.infinity,
       child: GridView(
@@ -146,20 +144,18 @@ class _GlobalCasesDashboardState extends State<GlobalCasesDashboard> {
             cases: globalStatusData.globalStatus.newDeaths,
             iconColor: Colors.redAccent[100],
           ),
-          if (_deviceSize.height >= 600)
-            InfoCard(
-              title: appLang['activecases'],
-              titleColor: Colors.pink[300],
-              cases: globalStatusData.globalStatus.activeCases,
-              iconColor: Colors.pinkAccent[100],
-            ),
-          if (_deviceSize.height >= 600)
-            InfoCard(
-              title: appLang['criticalcases'],
-              titleColor: Colors.pink[300],
-              cases: globalStatusData.globalStatus.criticalCases,
-              iconColor: Colors.pinkAccent[100],
-            ),
+          InfoCard(
+            title: appLang['activecases'],
+            titleColor: Colors.pink[300],
+            cases: globalStatusData.globalStatus.activeCases,
+            iconColor: Colors.pinkAccent[100],
+          ),
+          InfoCard(
+            title: appLang['criticalcases'],
+            titleColor: Colors.pink[300],
+            cases: globalStatusData.globalStatus.criticalCases,
+            iconColor: Colors.pinkAccent[100],
+          ),
         ],
       ),
     );

@@ -3,7 +3,6 @@ import 'package:covid19app/providers/counrties_provider.dart';
 import 'package:covid19app/providers/language_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
 
 import '../../models/counrty_status.dart';
@@ -82,6 +81,7 @@ class CountryItem extends StatelessWidget {
                   progressIndicatorBuilder: (context, url, downloadProgress) {
                     return LinearProgressIndicator(
                       color: Theme.of(context).accentColor,
+                      value: downloadProgress.progress,
                     );
                   },
                 ),

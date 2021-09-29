@@ -1,7 +1,9 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:covid19app/providers/language_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
@@ -273,10 +275,11 @@ class _CountryCovidStatusDetailsState extends State<CountryCovidStatusDetails> {
         ),
       ],
       stretch: true,
-      expandedHeight: 280,
+      expandedHeight: kIsWeb ? 300 : 260,
       flexibleSpace: FlexibleSpaceBar(
         stretchModes: [
           StretchMode.zoomBackground,
+          StretchMode.fadeTitle,
         ],
         centerTitle: true,
         title: Container(
@@ -299,9 +302,14 @@ class _CountryCovidStatusDetailsState extends State<CountryCovidStatusDetails> {
           child: Hero(
             tag: widget.countryStatus.countryName ??
                 ValueKey(widget.countryStatus.countryFlag),
-            child: Image.network(
-              widget.countryStatus.countryFlag,
-              fit: BoxFit.fill,
+            child: CachedNetworkImage(
+              cacheKey: widget.countryStatus.countryName ??
+                  ValueKey(widget.countryStatus.countryFlag),
+              imageUrl: widget.countryStatus.countryFlag,
+              fit: kIsWeb ? BoxFit.cover : BoxFit.fill,
+              placeholder: (ctx, url) => SpinKitPulse(
+                color: Theme.of(context).accentColor,
+              ),
             ),
           ),
         ),

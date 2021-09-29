@@ -1,5 +1,4 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
-import 'package:covid19app/providers/language_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/semantics.dart';
@@ -9,6 +8,7 @@ import 'package:provider/provider.dart';
 
 import '../constants/data.dart';
 import '../models/global_status.dart';
+import '../providers/language_provider.dart';
 import '../providers/global_status_provider.dart';
 import '../widgets/drawers/app_drawer.dart';
 

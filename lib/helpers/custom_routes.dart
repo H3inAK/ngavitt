@@ -38,8 +38,8 @@ class CustomPageTransactionBuilder extends PageTransitionsBuilder {
   }
 }
 
-class CustomRoute<T> extends MaterialPageRoute<T> {
-  CustomRoute({
+class AppDrawerMenutItemRoute<T> extends MaterialPageRoute<T> {
+  AppDrawerMenutItemRoute({
     @required WidgetBuilder builder,
     RouteSettings settings,
   }) : super(

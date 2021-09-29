@@ -39,7 +39,11 @@ class _PopupSubMenuState<T> extends State<PopupSubMenuItem<T>> {
       tooltip: widget.title,
       child: Padding(
         padding: const EdgeInsets.only(
-            left: 16.0, right: 8.0, top: 12.0, bottom: 12.0),
+          left: 16.0,
+          right: 8.0,
+          top: 12.0,
+          bottom: 12.0,
+        ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           mainAxisSize: MainAxisSize.max,
@@ -65,6 +69,7 @@ class _PopupSubMenuState<T> extends State<PopupSubMenuItem<T>> {
           Navigator.pop(context);
         }
         widget.onSelected?.call(value);
+        // widget.onSelected(value);
       },
       offset: Offset.zero,
       itemBuilder: (BuildContext context) {

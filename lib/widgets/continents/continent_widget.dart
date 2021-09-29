@@ -50,7 +50,7 @@ class Continents extends StatelessWidget {
       children: [
         Container(
           width: double.infinity,
-          height: deviceSize.height >= 700 ? 340 : 240,
+          height: deviceSize.height >= 600 ? 340 : 260,
           padding: EdgeInsets.symmetric(
             vertical: 20,
             horizontal: 15,
@@ -66,7 +66,8 @@ class Continents extends StatelessWidget {
                   decoration: BoxDecoration(
                     image: DecorationImage(
                       image: AssetImage('assets/images/map.png'),
-                      fit: BoxFit.fill,
+                      fit:
+                          deviceSize.height >= 600 ? BoxFit.fill : BoxFit.cover,
                     ),
                     borderRadius: BorderRadius.circular(8),
                   ),

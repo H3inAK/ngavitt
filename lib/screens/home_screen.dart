@@ -1,5 +1,4 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
-import 'package:covid19app/providers/language_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -7,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import '../providers/language_provider.dart';
 import '../helpers/quick_actions.dart';
 import '../helpers/custom_routes.dart';
 import '../pages/pie_chart_global.dart';
@@ -43,7 +43,6 @@ class HomeScreen extends StatelessWidget {
           );
         }
       });
-
     final deviceSize = MediaQuery.of(context).size;
 
     return FutureBuilder<Map<String, dynamic>>(
@@ -74,24 +73,13 @@ class HomeScreen extends StatelessWidget {
                   title: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      SvgPicture.asset(
-                        'assets/icons/virus.svg',
-                        color: Theme.of(context).accentColor,
-                        width: 26,
-                      ),
-                      SizedBox(width: 6),
                       Text(
                         snapshot.data['title'],
-                        style: GoogleFonts.aclonica(
+                        style: GoogleFonts.teko(
                           color: Theme.of(context).accentColor,
+                          fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
-                      ),
-                      SizedBox(width: 6),
-                      SvgPicture.asset(
-                        'assets/icons/virus.svg',
-                        color: Theme.of(context).accentColor,
-                        width: 26,
                       ),
                     ],
                   ),
@@ -104,7 +92,6 @@ class HomeScreen extends StatelessWidget {
                         color: Theme.of(context).accentColor,
                       ),
                       onPressed: () {
-                        // Navigator.of(context).pushNamed(SearchScreen.routeName);
                         Navigator.of(context).push(
                           FadedPageRoute(
                             child: SearchScreen(),
@@ -113,25 +100,6 @@ class HomeScreen extends StatelessWidget {
                         );
                       },
                     ),
-                    // DropdownButtonHideUnderline(
-                    //   child: DropdownButton(
-                    //     onChanged: (lang) {
-                    //       Provider.of<LanguageProvider>(context, listen: false)
-                    //           .changeLanguage(lang);
-                    //     },
-                    //     value: appLang,
-                    //     items: [
-                    //       DropdownMenuItem(
-                    //         child: Text("EN"),
-                    //         value: AppLanguage.enLang,
-                    //       ),
-                    //       DropdownMenuItem(
-                    //         child: Text("MY"),
-                    //         value: AppLanguage.myLang,
-                    //       ),
-                    //     ],
-                    //   ),
-                    // ),
                   ],
                 ),
                 body: Column(
@@ -150,7 +118,10 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     buildBottomAnimatedActionBar(
-                        deviceSize, context, snapshot.data),
+                      deviceSize,
+                      context,
+                      snapshot.data,
+                    ),
                   ],
                 ),
               ),
@@ -163,7 +134,10 @@ class HomeScreen extends StatelessWidget {
   }
 
   Widget buildBottomAnimatedActionBar(
-      Size deviceSize, BuildContext context, Map<String, dynamic> appLang) {
+    Size deviceSize,
+    BuildContext context,
+    Map<String, dynamic> appLang,
+  ) {
     return TweenAnimationBuilder<double>(
       tween: Tween(begin: 1.0, end: 0.0),
       duration: const Duration(milliseconds: 1600),

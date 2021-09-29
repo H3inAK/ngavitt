@@ -5,18 +5,22 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:provider/provider.dart';
-// import 'package:flutter/scheduler.dart' show timeDilation;
 
 import '../../themes/theme_service.dart';
 import '../../helpers/custom_routes.dart';
+import '../../providers/app_drawer_provider.dart';
 import '../../providers/language_provider.dart';
 import '../../screens/home_screen.dart';
 import '../../screens/prevention_screen.dart';
-import '../../screens/about_me.dart';
+import '../../screens/contact_me.dart';
 import '../../pages/applanguage_setting.dart';
 import '../../pages/pie_chart_global.dart';
 
 class AppDrawer extends StatefulWidget {
+  final Function(int) onSelected;
+
+  AppDrawer({this.onSelected});
+
   @override
   _AppDrawerState createState() => _AppDrawerState();
 }
@@ -45,7 +49,10 @@ class _AppDrawerState extends State<AppDrawer>
 
   @override
   Widget build(BuildContext context) {
-    final appLang = Provider.of<LanguageProvider>(context).appLanguage;
+    final appLang =
+        Provider.of<LanguageProvider>(context, listen: false).appLanguage;
+    var appDrawerProvider =
+        Provider.of<AppDrawerProvider>(context, listen: false);
 
     return Drawer(
       child: Container(
@@ -58,49 +65,74 @@ class _AppDrawerState extends State<AppDrawer>
                 children: [
                   buildDrawerHeader(appLang),
                   buildDrawerItem(
-                    Icons.home_filled,
-                    appLang['seeallstatus'],
-                    () => Navigator.of(context).pushReplacement(
-                      CustomRoute(
-                        builder: (ctx) => HomeScreen(),
-                      ),
-                    ),
+                    currentMenuItem: appDrawerProvider.currentMenuItem,
+                    item: 0,
+                    iconData: Icons.home_filled,
+                    title: appLang['seeallstatus'],
+                    onClicked: () {
+                      appDrawerProvider.setMenuItem = 0;
+                      Navigator.of(context).pushReplacement(
+                        AppDrawerMenutItemRoute(
+                          builder: (ctx) => HomeScreen(),
+                        ),
+                      );
+                    },
                   ),
                   buildDrawerItem(
-                    Icons.masks_sharp,
-                    appLang['preventions'],
-                    () => Navigator.of(context).pushReplacement(
-                      CustomRoute(
-                        builder: (ctx) => PreventionScreen(),
-                      ),
-                    ),
+                    currentMenuItem: appDrawerProvider.currentMenuItem,
+                    item: 1,
+                    iconData: Icons.masks_sharp,
+                    title: appLang['preventions'],
+                    onClicked: () {
+                      appDrawerProvider.setMenuItem = 1;
+                      Navigator.of(context).pushReplacement(
+                        AppDrawerMenutItemRoute(
+                          builder: (ctx) => PreventionScreen(),
+                        ),
+                      );
+                    },
                   ),
                   buildDrawerItem(
-                    Icons.bar_chart,
-                    appLang['globalpiechart'],
-                    () => Navigator.of(context).pushReplacement(
-                      CustomRoute(
-                        builder: (ctx) => PieChartPage(),
-                      ),
-                    ),
+                    currentMenuItem: appDrawerProvider.currentMenuItem,
+                    item: 2,
+                    iconData: Icons.bar_chart,
+                    title: appLang['globalpiechart'],
+                    onClicked: () {
+                      appDrawerProvider.setMenuItem = 2;
+                      Navigator.of(context).pushReplacement(
+                        AppDrawerMenutItemRoute(
+                          builder: (ctx) => PieChartPage(),
+                        ),
+                      );
+                    },
                   ),
                   buildDrawerItem(
-                    Icons.person_pin_sharp,
-                    appLang['contactme'],
-                    () => Navigator.of(context).pushReplacement(
-                      CustomRoute(
-                        builder: (ctx) => AboutAuthor(),
-                      ),
-                    ),
+                    currentMenuItem: appDrawerProvider.currentMenuItem,
+                    item: 3,
+                    iconData: Icons.person_pin_sharp,
+                    title: appLang['contactme'],
+                    onClicked: () {
+                      appDrawerProvider.setMenuItem = 3;
+                      Navigator.of(context).pushReplacement(
+                        AppDrawerMenutItemRoute(
+                          builder: (ctx) => AboutAuthor(),
+                        ),
+                      );
+                    },
                   ),
                   buildDrawerItem(
-                    Icons.language,
-                    appLang['changelanguage'],
-                    () => Navigator.of(context).pushReplacement(
-                      CustomRoute(
-                        builder: (ctx) => LanguageSetting(),
-                      ),
-                    ),
+                    currentMenuItem: appDrawerProvider.currentMenuItem,
+                    item: 4,
+                    iconData: Icons.language,
+                    title: appLang['changelanguage'],
+                    onClicked: () {
+                      appDrawerProvider.setMenuItem = 4;
+                      Navigator.of(context).pushReplacement(
+                        AppDrawerMenutItemRoute(
+                          builder: (ctx) => LanguageSetting(),
+                        ),
+                      );
+                    },
                   ),
                 ],
               ),
@@ -123,10 +155,6 @@ class _AppDrawerState extends State<AppDrawer>
         builder: (context) {
           return GestureDetector(
             onTap: () async {
-              setState(() {
-                themeName =
-                    themeBrightness == Brightness.light ? 'dark' : 'light';
-              });
               var service = await ThemeService.instance
                 ..save(themeName);
               var theme = service.getByName(themeName);
@@ -135,26 +163,53 @@ class _AppDrawerState extends State<AppDrawer>
                 theme: theme,
                 reverseAnimation: themeName == 'light' ? true : false,
               );
+              setState(() {
+                themeName =
+                    themeBrightness == Brightness.light ? 'dark' : 'light';
+              });
             },
+            // child: TweenAnimationBuilder<double>(
+            //   tween: Tween(begin: 1.0, end: 0.0),
+            //   duration: const Duration(milliseconds: 1000),
+            //   builder: (ctx, value, child) {
+            //     print(value);
+            //     return themeName == 'dark'
+            //         ? Transform.translate(
+            //             offset: Offset(0.0, -100 * value),
+            //             child: Transform.rotate(
+            //               angle: (2 * pi) * (1 - value),
+            //               child: darkIcon,
+            //             ),
+            //           )
+            //         : Transform.rotate(
+            //             angle: (2 * pi) * (1 - value),
+            //             child: Transform.scale(
+            //               scale: (1 - value),
+            //               child: lightIcon,
+            //             ),
+            //           );
+            //   },
+            // ),
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 800),
               switchOutCurve: Curves.elasticIn,
               switchInCurve: Curves.elasticOut,
               transitionBuilder: (child, animation) {
                 return SizeTransition(
+                  key: UniqueKey(),
                   sizeFactor: animation,
                   axis: Axis.vertical,
                   child: child,
                 );
               },
-              // layoutBuilder: (currentChild, previousChildren) {
-              //   return Column(
-              //     children: [
-              //       ...previousChildren,
-              //       currentChild,
-              //     ],
-              //   );
-              // },
+              layoutBuilder: (currentChild, previousChildren) {
+                return Column(
+                  children: [
+                    ...previousChildren,
+                    currentChild,
+                  ],
+                );
+              },
               child: themeName == 'dark' ? darkIcon : lightIcon,
             ),
           );
@@ -221,17 +276,30 @@ class _AppDrawerState extends State<AppDrawer>
     );
   }
 
-  ListTile buildDrawerItem(
-      IconData iconData, String title, Function tapHandler) {
-    return ListTile(
-      contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 30),
-      onTap: tapHandler,
-      leading: Icon(
-        iconData,
-        color: Theme.of(context).accentColor,
-      ),
-      title: Text(
-        title,
+  Widget buildDrawerItem({
+    IconData iconData,
+    String title,
+    Function onClicked,
+    int item,
+    int currentMenuItem,
+  }) {
+    return ListTileTheme(
+      minLeadingWidth: 20,
+      selectedColor: Theme.of(context).accentColor,
+      selectedTileColor: Theme.of(context).brightness == Brightness.dark
+          ? Colors.white30
+          : Colors.black26,
+      child: ListTile(
+        selected: item == currentMenuItem,
+        contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 30),
+        onTap: onClicked,
+        leading: Icon(
+          iconData,
+          color: Theme.of(context).accentColor,
+        ),
+        title: Text(
+          title,
+        ),
       ),
     );
   }

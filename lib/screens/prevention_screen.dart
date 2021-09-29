@@ -1,10 +1,10 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
-import 'package:covid19app/providers/language_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
+import '../providers/language_provider.dart';
 import '../widgets/drawers/app_drawer.dart';
 import '../widgets/cards/preventation_card.dart';
 

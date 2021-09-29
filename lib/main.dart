@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
+import '../providers/app_drawer_provider.dart';
 import './providers/global_status_provider.dart';
 import './providers/counrties_provider.dart';
 import './providers/country_status_provider.dart';
@@ -43,6 +44,9 @@ class MyApp extends StatelessWidget {
       child: Builder(
         builder: (BuildContext context) => MultiProvider(
           providers: [
+            ChangeNotifierProvider(
+              create: (ctx) => AppDrawerProvider(),
+            ),
             ChangeNotifierProvider(
               create: (ctx) => LanguageProvider(),
             ),

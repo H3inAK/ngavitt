@@ -1,4 +1,3 @@
-import 'package:covid19app/providers/language_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
@@ -6,18 +5,13 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/counrties_provider.dart';
+import '../providers/language_provider.dart';
 import '../helpers/popup_submenu.dart';
 import '../helpers/custom_routes.dart';
 import '../widgets/continents/continent_widget.dart';
+import '../widgets/additionals/popup_submenu.dart' as psm;
 import '../widgets/countries/countries_list_widget.dart';
 import 'search_screen.dart';
-
-enum FilterOptions {
-  SortbyNameAsec,
-  SortbyNameDesc,
-  SortbyActiveCasesAsec,
-  SortbyActiveCasesDesc,
-}
 
 class AllCountriesScreen extends StatelessWidget {
   static const routeName = '/all-countries';
@@ -45,7 +39,7 @@ class AllCountriesScreen extends StatelessWidget {
                     centerTitle: true,
                     title: Text(
                       appLang['allcountries'],
-                      style: GoogleFonts.inter(
+                      style: GoogleFonts.lato(
                         fontWeight: FontWeight.bold,
                         color: Theme.of(context).accentColor,
                       ),
@@ -127,6 +121,28 @@ class AllCountriesScreen extends StatelessWidget {
                             ),
                           ];
                         },
+                        //   itemBuilder: (context) {
+                        //     return [
+                        //       psm.PopupSubMenu(
+                        //         title: appLang['sortbyactivecases'],
+                        //         items: [
+                        //           psm.PopupSubMenuItem(),
+                        //         ],
+                        //         onSelected: (psm.FilterOptions filterOptions) {
+                        //           if (filterOptions ==
+                        //               psm.FilterOptions.SortbyActiveCasesAsec) {
+                        //             Provider.of<CountriesProvider>(context,
+                        //                     listen: false)
+                        //                 .sortByActiveCases(isAcse: true);
+                        //           } else {
+                        //             Provider.of<CountriesProvider>(context,
+                        //                     listen: false)
+                        //                 .sortByActiveCases(isAcse: false);
+                        //           }
+                        //         },
+                        //       ),
+                        //     ];
+                        //   },
                       ),
                     ],
                     bottom: TabBar(

@@ -11,9 +11,7 @@ class GlobalStatusProvider with ChangeNotifier {
 
   bool get isRefresh => _isRefresh;
 
-  set setRefresh(bool refresh) {
-    _isRefresh = refresh;
-  }
+  set setRefresh(bool refresh) => _isRefresh = refresh;
 
   GlobalStatus get globalStatus {
     return _globalStatus;
@@ -31,10 +29,5 @@ class GlobalStatusProvider with ChangeNotifier {
     } else {
       throw Exception("failed to load data!");
     }
-  }
-
-  // may be used later
-  void changeSignal() {
-    notifyListeners();
   }
 }
