@@ -6,6 +6,8 @@ import 'package:flutter_icons/flutter_icons.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:cached_network_image_builder/cached_network_image_builder.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 import '../constants/data.dart';
 import '../models/counrty_status.dart';
@@ -131,7 +133,8 @@ class _CountryCovidStatusDetailsState extends State<CountryCovidStatusDetails> {
                         const EdgeInsets.symmetric(horizontal: 6, vertical: 10),
                     sliver: SliverGrid(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        childAspectRatio: kIsWeb
+                        childAspectRatio: !UniversalPlatform.isAndroid &&
+                                !UniversalPlatform.isIOS
                             ? (3.45 / 2)
                             : deviceSize.height >= 600
                                 ? (3.14 / 2)
@@ -158,7 +161,35 @@ class _CountryCovidStatusDetailsState extends State<CountryCovidStatusDetails> {
                     sliver: SliverGrid(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 3,
-                        childAspectRatio: kIsWeb
+                        childAspectRatio: !UniversalPlatform.isAndroid &&
+                                !UniversalPlatform.isIOS
+                            ? (3.45 / 2)
+                            : deviceSize.height >= 600
+                                ? (3.14 / 2)
+                                : (2.9 / 2),
+                      ),
+                      delegate: SliverChildBuilderDelegate(
+                        (ctx, index) {
+                          return InfoCard(
+                            cases: allstatus[index]["cases"],
+                            title: allstatus[index]["title"],
+                            iconColor: allstatus[index]["color"],
+                            titleColor: allstatus[index]["color"],
+                          );
+                        },
+                        childCount: allstatus.length,
+                      ),
+                    ),
+                  ),
+                if (deviceSize.width > 1200 && deviceSize.width <= 2000)
+                  SliverPadding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20, vertical: 14),
+                    sliver: SliverGrid(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 4,
+                        childAspectRatio: !UniversalPlatform.isAndroid &&
+                                !UniversalPlatform.isIOS
                             ? (3.45 / 2)
                             : deviceSize.height >= 600
                                 ? (3.14 / 2)
@@ -302,15 +333,35 @@ class _CountryCovidStatusDetailsState extends State<CountryCovidStatusDetails> {
           child: Hero(
             tag: widget.countryStatus.countryName ??
                 ValueKey(widget.countryStatus.countryFlag),
-            child: CachedNetworkImage(
-              cacheKey: widget.countryStatus.countryName ??
-                  ValueKey(widget.countryStatus.countryFlag),
-              imageUrl: widget.countryStatus.countryFlag,
-              fit: kIsWeb ? BoxFit.cover : BoxFit.fill,
-              placeholder: (ctx, url) => SpinKitPulse(
-                color: Theme.of(context).accentColor,
-              ),
-            ),
+            child: UniversalPlatform.isLinux
+                ? CachedNetworkImageBuilder(
+                    key: widget.countryStatus.countryName != null
+                        ? ValueKey(widget.countryStatus.countryName)
+                        : ValueKey(widget.countryStatus.countryFlag),
+                    url: widget.countryStatus.countryFlag,
+                    builder: (image) {
+                      return Image.file(
+                        image,
+                        fit: BoxFit.fill,
+                      );
+                    },
+                    placeHolder: Center(
+                      child: SpinKitPulse(
+                        color: Theme.of(context).accentColor,
+                      ),
+                    ),
+                  )
+                : CachedNetworkImage(
+                    cacheKey: widget.countryStatus.countryName ??
+                        widget.countryStatus.countryFlag,
+                    imageUrl: widget.countryStatus.countryFlag,
+                    fit: kIsWeb ? BoxFit.cover : BoxFit.fill,
+                    placeholder: (ctx, url) => Center(
+                      child: SpinKitPulse(
+                        color: Theme.of(context).accentColor,
+                      ),
+                    ),
+                  ),
           ),
         ),
       ),

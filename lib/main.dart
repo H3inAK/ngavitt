@@ -1,9 +1,9 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 import '../providers/app_drawer_provider.dart';
 import './providers/global_status_provider.dart';
@@ -19,14 +19,15 @@ import './screens/all_countries.dart';
 import './screens/country_detailed.dart';
 
 void main() async {
-  SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(
-      statusBarColor: Colors.transparent,
-      systemNavigationBarColor: Colors.black38,
-    ),
-  );
+  // SystemChrome.setSystemUIOverlayStyle(
+  //   SystemUiOverlayStyle(
+  //     statusBarColor: Colors.transparent,
+  //     systemNavigationBarColor: Colors.black38,
+  //   ),
+  // );
   WidgetsFlutterBinding.ensureInitialized();
-  if (!kIsWeb) AppBannerActions.init();
+  if (UniversalPlatform.isAndroid || UniversalPlatform.isIOS)
+    AppBannerActions.init();
   final themeServise = await ThemeService.instance;
   final initTheme = themeServise.initial;
   runApp(MyApp(initTheme: initTheme));
@@ -39,6 +40,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setSystemUIOverlayStyle(
+      SystemUiOverlayStyle(
+        statusBarColor: Colors.transparent,
+        // systemNavigationBarColor: Theme.of(context).appBarTheme.color,
+        systemNavigationBarColor:
+            Theme.of(context).brightness == Brightness.dark
+                ? Colors.white70
+                : Colors.black87,
+      ),
+    );
+
     return ThemeProvider(
       initTheme: initTheme,
       child: Builder(

@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_icons/flutter_icons.dart';
 import 'package:provider/provider.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 import '../models/counrty_status.dart';
 import '../providers/counrties_provider.dart';
@@ -81,7 +82,7 @@ class _SearchScreenState extends State<SearchScreen> {
         actions: [
           Container(
             margin: const EdgeInsets.symmetric(vertical: 5),
-            width: kIsWeb
+            width: kIsWeb || UniversalPlatform.isLinux
                 ? MediaQuery.of(context).size.width -
                     (MediaQuery.of(context).size.width * 0.14)
                 : MediaQuery.of(context).size.width * 0.75,
@@ -144,7 +145,10 @@ class _SearchScreenState extends State<SearchScreen> {
                     bottom: 5,
                   ),
                   itemBuilder: (ctx, i) {
-                    return CountryItem(countryStatus: _countries[i]);
+                    return CountryItem(
+                      countryStatus: _countries[i],
+                      key: UniqueKey(),
+                    );
                   },
                   itemCount: _countries.length,
                 ),

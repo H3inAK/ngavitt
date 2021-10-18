@@ -1,11 +1,15 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:covid19app/providers/counrties_provider.dart';
-import 'package:covid19app/providers/language_provider.dart';
+import 'package:cached_network_image_builder/cached_network_image_builder.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 import '../../models/counrty_status.dart';
+import '../../providers/counrties_provider.dart';
+import '../../providers/language_provider.dart';
 import '../../helpers/custom_routes.dart';
 import '../../screens/country_covid_status_details.dart';
 
@@ -33,12 +37,26 @@ class CountryItem extends StatelessWidget {
       tween: Tween(begin: 0.0, end: 1.0),
       curve: Curves.bounceOut,
       builder: (context, value, child) {
-        return isAninmate
-            ? Transform.scale(
-                scale: value.clamp(0.86, 1.0),
-                child: child,
-              )
-            : child;
+        // return isAninmate
+        //     ? Transform.scale(
+        //         scale: value.clamp(0.86, 1.0),
+        //         child: child,
+        //       )
+        //     : child;
+
+        return UniversalPlatform.isAndroid || UniversalPlatform.isIOS
+            ? isAninmate
+                ? Transform.scale(
+                    scale: value.clamp(0.9, 1.0),
+                    child: child,
+                  )
+                : child
+            : isAninmate
+                ? Transform.translate(
+                    offset: Offset(0.0, (1 - value) * -100),
+                    child: child,
+                  )
+                : child;
       },
       child: Card(
         elevation: 8,
@@ -73,18 +91,37 @@ class CountryItem extends StatelessWidget {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(6.0),
                 clipBehavior: Clip.antiAliasWithSaveLayer,
-                child: CachedNetworkImage(
-                  imageUrl: countryStatus.countryFlag,
-                  cacheKey: countryStatus.countryName ??
-                      ValueKey(countryStatus.countryFlag),
-                  fit: BoxFit.fill,
-                  progressIndicatorBuilder: (context, url, downloadProgress) {
-                    return LinearProgressIndicator(
-                      color: Theme.of(context).accentColor,
-                      value: downloadProgress.progress,
-                    );
-                  },
-                ),
+                child: UniversalPlatform.isLinux
+                    ? CachedNetworkImageBuilder(
+                        key: countryStatus.countryName != null
+                            ? ValueKey(countryStatus.countryName)
+                            : ValueKey(countryStatus.countryFlag),
+                        url: countryStatus.countryFlag,
+                        builder: (image) {
+                          return Image.file(
+                            image,
+                            fit: BoxFit.fill,
+                          );
+                        },
+                        placeHolder: Center(
+                          child: SpinKitPulse(
+                            color: Theme.of(context).accentColor,
+                          ),
+                        ),
+                      )
+                    : CachedNetworkImage(
+                        imageUrl: countryStatus.countryFlag,
+                        cacheKey: countryStatus.countryName ??
+                            countryStatus.countryFlag,
+                        fit: BoxFit.fill,
+                        progressIndicatorBuilder:
+                            (context, url, downloadProgress) {
+                          return LinearProgressIndicator(
+                            color: Theme.of(context).accentColor,
+                            value: downloadProgress.progress,
+                          );
+                        },
+                      ),
               ),
             ),
           ),

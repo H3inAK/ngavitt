@@ -50,7 +50,11 @@ class Continents extends StatelessWidget {
       children: [
         Container(
           width: double.infinity,
-          height: deviceSize.height >= 600 ? 340 : 260,
+          height: deviceSize.height >= 600
+              ? deviceSize.height >= 900
+                  ? 400
+                  : 320
+              : 260,
           padding: EdgeInsets.symmetric(
             vertical: 20,
             horizontal: 15,

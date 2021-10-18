@@ -1,7 +1,7 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:provider/provider.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 import '../../providers/language_provider.dart';
 import '../../providers/global_status_provider.dart';
@@ -99,11 +99,12 @@ class _GlobalCasesDashboardState extends State<GlobalCasesDashboard> {
         padding: EdgeInsets.only(bottom: 10),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: crossAxisCount,
-          childAspectRatio: kIsWeb
-              ? (3.45 / 2)
-              : _deviceSize.height >= 600
-                  ? (3.14 / 2)
-                  : (2.9 / 2),
+          childAspectRatio:
+              !UniversalPlatform.isAndroid && !UniversalPlatform.isIOS
+                  ? (3.45 / 2)
+                  : _deviceSize.height >= 600
+                      ? (3.14 / 2)
+                      : (2.9 / 2),
           mainAxisSpacing: 2,
           crossAxisSpacing: 2,
         ),

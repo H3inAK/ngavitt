@@ -13,7 +13,7 @@ class CountryStatusProvider with ChangeNotifier {
   }
 
   Future<void> fetchAndSetCountryStatus(String countryName) async {
-    final url = "https://corona.lmao.ninja/v3/covid-19/countries/$countryName";
+    final url = "https://disease.sh/v3/covid-19/countries/$countryName";
     final response = await http.get(url);
 
     if (response.statusCode == 200) {

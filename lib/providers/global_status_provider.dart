@@ -18,7 +18,7 @@ class GlobalStatusProvider with ChangeNotifier {
   }
 
   Future<void> fetchAndSetGlobalStatus() async {
-    final url = "https://corona.lmao.ninja/v3/covid-19/all";
+    final url = "https://disease.sh/v3/covid-19/all";
     final response = await http.get(url);
 
     if (response.statusCode == 200) {

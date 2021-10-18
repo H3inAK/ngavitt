@@ -1,6 +1,6 @@
 ## NgaVitt🔥🔥 (Covid-19 Tracker App with Awesome UI)
 
-#### Public API - https://corona.lmao.ninja/
+#### Public API - https://disease.sh/
 #### UI inspired from [The Flutter Way](https://youtu.be/axWBN1aotQk)
 
 #### <a href="https://ngavitt.netlify.app/" style="text-decoration: none; color: blue;">DEMO WEB</a>

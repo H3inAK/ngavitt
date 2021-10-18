@@ -34,7 +34,7 @@ class PreventionScreen extends StatelessWidget {
           ),
           title: Text(
             appLang['preventions'],
-            style: GoogleFonts.aclonica(
+            style: GoogleFonts.teko(
               color: Theme.of(context).accentColor,
               fontWeight: FontWeight.bold,
             ),

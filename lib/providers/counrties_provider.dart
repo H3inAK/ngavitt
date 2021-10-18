@@ -21,7 +21,7 @@ class CountriesProvider with ChangeNotifier {
   }
 
   Future<void> fetchAndSetCountriesData() async {
-    final url = "https://corona.lmao.ninja/v3/covid-19/countries";
+    final url = "https://disease.sh/v3/covid-19/countries";
     final response = await http.get(url);
 
     if (response.statusCode == 200) {

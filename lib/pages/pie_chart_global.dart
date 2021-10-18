@@ -128,7 +128,7 @@ class _PieChartPageState extends State<PieChartPage> {
           ),
           title: Text(
             appLang['globalpiechart'],
-            style: GoogleFonts.aclonica(
+            style: GoogleFonts.teko(
               color: Theme.of(context).accentColor,
               fontWeight: FontWeight.bold,
             ),

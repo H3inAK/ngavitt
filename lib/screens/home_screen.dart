@@ -1,10 +1,10 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
+import 'package:universal_platform/universal_platform.dart';
 
 import '../providers/language_provider.dart';
 import '../helpers/quick_actions.dart';
@@ -18,7 +18,7 @@ import '../widgets/global/global_case_widget.dart';
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    if (!kIsWeb)
+    if (UniversalPlatform.isAndroid || UniversalPlatform.isIOS)
       AppBannerActions.quickActions.initialize((type) {
         if (type == 'global') {
           Navigator.of(context).push(
